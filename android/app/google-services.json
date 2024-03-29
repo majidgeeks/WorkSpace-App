@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "184803085881",
+    "project_id": "joie-app-4db9e",
+    "storage_bucket": "joie-app-4db9e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184803085881:android:7ca9cd1b824200f773c7e8",
+        "android_client_info": {
+          "package_name": "com.joie"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDH8EkWBs3IvydWWPA-ZARmlpOI1inwWw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
