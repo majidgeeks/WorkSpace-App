@@ -10,12 +10,18 @@ import {
 } from 'react-native';
 import LogoJoie from '../SvgComponents/LogoJoie';
 import Input from '../components/Svgs/Input';
+import { useNavigation } from '@react-navigation/native';
+import auth from '@react-native-firebase/auth';
+
+
 
 interface LoginScreenProps {}
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigation = useNavigation();
+  
 
   const handleEmail = (txt: string) => {
     setEmail(txt);
@@ -27,12 +33,21 @@ const LoginScreen = () => {
 
   const handleLogin = async() => {
    try{
-    console.log("login btn")
+      const isUserLogin = await auth().signInWithEmailAndPassword(
+        email,
+        password
+      )
+
+      console.log('isUserLogin',isUserLogin);
 
    }
    catch(error){
      console.log("err", error)
    }
+  }
+
+  const onHandleSignUp = () => {
+    navigation.navigate("SignUp");
   }
 
   return (
@@ -109,6 +124,7 @@ const LoginScreen = () => {
           <View style={{marginVertical: 110, alignItems: 'center'}}>
             <Text style={{color: 'white'}}>Don't have an account</Text>
             <TouchableOpacity
+              onPress={onHandleSignUp}
               style={{
                 borderWidth: 1,
                 borderColor: 'white',
