@@ -23,13 +23,14 @@ export default CommunityTagOutline;
 const styles = StyleSheet.create({
   tOpacity: {
     flexDirection:"row",
-    marginHorizontal: 10,
+    marginHorizontal: 5,
     borderColor: 'brown',
     borderWidth: 1,
-    width: 80,
     padding:7,
+    alignItems:"center",
     borderRadius: 5,
+    marginTop:10
   },
-  txt: {  marginLeft:4, },
-  image:{width:10, height:10, marginTop:5, marginLeft:7}
+  txt: { marginRight:5 },
+  image:{width:10, height:10}
 });

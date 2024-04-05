@@ -14,6 +14,11 @@ import {useNavigation} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import {Images} from '../assets/images';
 import {useForm, Controller} from 'react-hook-form';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+
+GoogleSignin.configure({
+  webClientId: '184803085881-q4ru0s41dr4q2ejc3h7281qh2iuqun95.apps.googleusercontent.com',
+});
 
 interface LoginScreenProps {}
 interface FormState {
@@ -25,6 +30,7 @@ const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigation: any = useNavigation();
+
   const {
     handleSubmit,
     control,
@@ -53,6 +59,25 @@ const LoginScreen = () => {
   const onHandleSignUp = () => {
     navigation.navigate('SignUp');
   };
+
+  const onGoogleBtnPress = async() => {
+    try{
+     // Check if your device supports Google Play
+  await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+  // Get the users ID token
+  const { idToken } = await GoogleSignin.signIn();
+
+  // Create a Google credential with the token
+  const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+  console.log("googleCredential",googleCredential)
+
+  // Sign-in the user with the credential
+   auth().signInWithCredential(googleCredential);
+    navigation.navigate('SelectFlow');}
+    catch(err:any){
+      console.log("err",err.message)
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -93,7 +118,7 @@ const LoginScreen = () => {
               onPress={handleSubmit(handleLogin)}>
               <Text style={styles.loginBtnTxt}>Login</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.googleBtn}>
+            <TouchableOpacity style={styles.googleBtn} onPress={onGoogleBtnPress}>
               <View
                 style={{
                   flexDirection: 'row',

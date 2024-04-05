@@ -2,6 +2,7 @@ import * as React from 'react';
 import {Text, View, StyleSheet, ImageBackground} from 'react-native';
 import {Images} from '../assets/images';
 import Header from '../components/Header';
+import RightMarkIcon from '../components/Svgs/RightMarkIcon';
 
 const SelectFlowScreen = () => {
   return (
@@ -10,11 +11,9 @@ const SelectFlowScreen = () => {
         <Header />
         <View style={styles.header1}>
           <Text style={styles.headerTxt1}>
-            Flow means staying grounded as the sky{' '}
+            Flow means staying grounded as the sky and letting everything else melt away.
           </Text>
-          <Text style={styles.headerTxt2}>
-            and letting everything else melt away.
-          </Text>
+
           <Text style={styles.midTxt}>How do you find your Flow?</Text>
           <View>
             <Text style={styles.txt1}>Energy</Text>
@@ -29,8 +28,13 @@ const SelectFlowScreen = () => {
             <Text style={styles.txt10}>Transcedence</Text>
           </View>
           <View style={styles.bottomView}>
-            <View style={styles.dot1}></View>
-            <View style={styles.dot2}></View>
+            <View style={{flexDirection: 'row', justifyContent: 'center', marginTop:20}}>
+              <View style={styles.dot1}></View>
+              <View style={styles.dot2}></View>
+            </View>
+            <View style={{marginLeft: 70,}}>
+              <RightMarkIcon />
+            </View>
           </View>
         </View>
       </ImageBackground>
@@ -49,23 +53,16 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   headerTxt1: {
-    marginTop: 15,
+    marginTop: 10,
     color: 'black',
     fontWeight: '500',
     fontSize: 15,
     textAlign: 'center',
-    marginBottom: -10,
-  },
-  headerTxt2: {
-    marginTop: 15,
-    color: 'black',
-    fontWeight: '500',
-    fontSize: 15,
-    textAlign: 'center',
+    marginHorizontal:10
   },
   midTxt: {
     textAlign: 'center',
-    marginTop: 30,
+    marginTop: 20,
     color: 'red',
     fontWeight: '400',
     fontSize: 20,
@@ -201,7 +198,8 @@ const styles = StyleSheet.create({
     marginTop: 6,
   },
   bottomView: {
-    marginTop: 25,
+    marginLeft:120,
+    marginTop: 15,
     flexDirection: 'row',
     justifyContent: 'center',
   },
