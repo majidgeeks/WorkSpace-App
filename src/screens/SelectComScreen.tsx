@@ -9,16 +9,36 @@ import RightMarkIcon from '../components/Svgs/RightMarkIcon';
 interface SelectComScreenProps {}
 
 const SelectComScreen = () => {
-    const [item, setItem] = useState([
-    "LGBTQ", "BIPOC", "Ceatives", "Parents", "Females", "Mental Health", "Pets", "Limited Mobility" 
-    ])
-    const [itemNum, setItemNum] = useState([]);
-    const [select, setSelect] = useState();
+  const [items, setItems] = useState([
+    'LGBTQ',
+    'BIPOC',
+    'Ceatives',
+    'Parents',
+    'Females',
+    'Mental Health',
+    'Pets',
+    'Limited Mobility',
+  ]);
+  const [itemsNum, setItemsNum] = useState<number[]>([]);
+  
+
+  const handleSelect = (index: number) => {
+    const updatedArray = [...itemsNum];
+    updatedArray.push(index);
+    setItemsNum(updatedArray);
+  };
+
+  const handleUnSelect = (index: number) => {
+    const updatedArray = [...itemsNum];
+    updatedArray.splice(index, 1);
+    setItemsNum(updatedArray);
+  };
   return (
     <View style={styles.container}>
       <ImageBackground source={Images.background}>
         <Header />
-        <View style={styles.header1}>{/* parent of all content except header */}
+        <View style={styles.header1}>
+          {/* parent of all content except header */}
           <View>
             <Text
               style={{
@@ -39,7 +59,7 @@ const SelectComScreen = () => {
               }}>
               What are your communities ?
             </Text>
-            </View>
+          </View>
           <View
             style={{
               marginVertical: 20,
@@ -48,14 +68,29 @@ const SelectComScreen = () => {
               justifyContent: 'center',
               marginHorizontal: 25,
             }}>
-            <CommunityTagFilled text="LGBTQ" />
+            {items.map((data, index) => {
+              return itemsNum.includes(index) ? (
+                <CommunityTagFilled
+                  key={data}
+                  text={data}
+                  onPress={() => handleUnSelect(index)}
+                />
+              ) : (
+                <CommunityTagOutline
+                  key={data}
+                  text={data}
+                  onPress={() => handleSelect(index)}
+                />
+              );
+            })}
+            {/* <CommunityTagFilled text="LGBTQ" />
             <CommunityTagOutline text="BIPOC" />
             <CommunityTagOutline text="Ceatives" />
             <CommunityTagOutline text="Parents" />
             <CommunityTagFilled text="Females" />
             <CommunityTagOutline text="Mental Health" />
             <CommunityTagOutline text="Pets" />
-            <CommunityTagOutline text="Limited Mobility" />
+            <CommunityTagOutline text="Limited Mobility" /> */}
           </View>
           <View style={styles.bottomView}>
             <View style={{flexDirection: 'row', justifyContent: 'center'}}>

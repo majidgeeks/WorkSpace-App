@@ -5,14 +5,16 @@ import { Images } from '../assets/images';
 interface CommunityTagOutlineProps {
   text: string;
   style?: TextStyle
+  onPress : () => void 
 }
 
-const CommunityTagOutline: React.FC<CommunityTagOutlineProps> = ({text, style}) => {
+const CommunityTagOutline: React.FC<CommunityTagOutlineProps> = ({text, style, onPress}) => {
   return (
 
-      <TouchableOpacity style={[styles.tOpacity, style]}>
+      <TouchableOpacity style={[styles.tOpacity, style]} onPress={onPress}>
         <Text style={[styles.txt, style]}>{text}</Text>
         <Image source={Images.plusPic} style={styles.image} />
+
       </TouchableOpacity>
     
   );

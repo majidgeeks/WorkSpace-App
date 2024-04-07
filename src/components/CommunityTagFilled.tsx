@@ -4,11 +4,12 @@ import {Images} from '../assets/images';
 
 interface CommunityTagFilledProps {
   text: string;
+  onPress : () => void 
 }
 
-const CommunityTagFilled: React.FC<CommunityTagFilledProps> = ({text}) => {
+const CommunityTagFilled: React.FC<CommunityTagFilledProps> = ({text, onPress}) => {
   return (
-    <TouchableOpacity style={[styles.opacityStyle]}>
+    <TouchableOpacity style={[styles.opacityStyle]} onPress={onPress}>
       <Text style={[styles.text]}>{text}</Text>
       <Image source={Images.crossPic} style={styles.image} />
     </TouchableOpacity>
