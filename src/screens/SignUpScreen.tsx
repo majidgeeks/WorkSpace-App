@@ -13,6 +13,7 @@ import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 import {Images} from '../assets/images';
 import {useForm, Controller} from 'react-hook-form';
+import { moderateScale } from 'react-native-size-matters';
 
 interface SignUpScreenProps {}
 
@@ -41,9 +42,14 @@ const SignUpScreen = () => {
         email,
         password,
       );
+      console.log("email", email)
       console.log('isUserCreated', isUserCreated);
       setMessage('');
-      navigation.navigate('Login');
+       if(isUserCreated){
+       navigation.navigate('SelectFlow');}
+       else{
+        return;
+       }
     } catch (err: any) {
       console.log('err', err);
       setMessage(err.message);
@@ -62,7 +68,7 @@ const SignUpScreen = () => {
             style={styles.header}>
             <LogoJoie />
           </View>
-          <View style={{marginBottom: 150}}>
+          <View style={{marginBottom: moderateScale(150)}}>
             <Text
               style={styles.signUptxt}>
               Sign Up
@@ -70,10 +76,14 @@ const SignUpScreen = () => {
             <Controller
               control={control}
               name="email"
+              rules={{
+               required:true
+              }}
               render={({field: {value, onChange}}) => (
                 <Input placeholder="Email" value={value} onChange={onChange} />
               )}
             />
+            {errors.email && <Text>email is required</Text>}
             <Controller
               control={control}
               name="password"
@@ -85,6 +95,7 @@ const SignUpScreen = () => {
                 />
               )}
             />
+            {errors.password && <Text>Password is required</Text>}
             <TouchableOpacity
               onPress={handleSubmit(onSubmit)}
               style={styles.submitBtn}>
@@ -116,35 +127,35 @@ const styles = StyleSheet.create({
   header:{
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 120,
-    marginVertical: 50,
+    marginTop: moderateScale(120),
+    marginVertical: moderateScale(50),
   },
   signUptxt:{
     color: 'white',
     textAlign: 'center',
-    marginVertical: 20,
-    fontSize: 20,
+    marginVertical: moderateScale(20),
+    fontSize: moderateScale(20),
     fontWeight: 'bold',
   },
   submitBtn:{
     borderWidth: 1,
-    backgroundColor: 'grey',
-    height: 45,
+    backgroundColor: 'white',
+    height: moderateScale(45),
     borderRadius: 30,
-    marginHorizontal: 10,
-    marginTop: 10,
+    marginHorizontal: moderateScale(10),
+    marginTop: moderateScale(10),
   },
   submitBtnTxt:{
     textAlign: 'center',
-    fontSize: 20,
-    marginTop: 6,
-    color: 'white',
+    fontSize: moderateScale(20),
+    marginTop: moderateScale(6),
+    color: 'red',
   },
   bottomBtn:{
     color: 'white',
     textAlign: 'center',
-    marginTop: 10,
-    fontSize: 15,
+    marginTop: moderateScale(10),
+    fontSize: moderateScale(15),
     fontWeight: 'bold',
   },
 });

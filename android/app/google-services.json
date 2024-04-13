@@ -12,7 +12,12 @@
           "package_name": "com.joie"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "184803085881-q4ru0s41dr4q2ejc3h7281qh2iuqun95.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDDH8EkWBs3IvydWWPA-ZARmlpOI1inwWw"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184803085881-i1cj63qlbm34n7nor9ktgumk71btdk1u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -11,9 +11,9 @@ const App = () => {
   return (
       // <LoginScreen/>
       // <SignUpScreen />
-      // <Navigater />
+      <Navigater />
       // <SelectFlowScreen />
-      <SelectComScreen />
+      // <SelectComScreen />
   );
 };
 

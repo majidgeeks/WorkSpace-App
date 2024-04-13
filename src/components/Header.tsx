@@ -6,7 +6,13 @@ interface HeaderProps {}
 
 const Header = () => {
   return (
-    <View style={{flexDirection: 'row', marginHorizontal: 10, marginVertical:10}}>
+    <View
+      style={{
+        height: 80,
+        flexDirection: 'row',
+        marginHorizontal: 10,
+        paddingVertical: 10,
+      }}>
       <Image
         style={{width: 50, height: 50, borderRadius: 50}}
         source={Images.myPic}
