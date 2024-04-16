@@ -9,13 +9,13 @@ import {
   Image,
 } from 'react-native';
 import LogoJoie from '../components/Svgs/LogoJoie';
-import Input from '../components/Input';
 import {useNavigation} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import {Images} from '../assets/images';
 import {useForm, Controller} from 'react-hook-form';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import { moderateScale } from 'react-native-size-matters';
+import CustomInput from '../components/Input';
 
 GoogleSignin.configure({
   webClientId:
@@ -102,7 +102,7 @@ const LoginScreen = () => {
                 required:true
               }}
               render={({field: {value, onChange}}) => (
-                <Input placeholder="Email" value={value} onChange={onChange} />
+                <CustomInput placeholder="Email" value={value} onChange={onChange} />
               )}
             />
             {errors.email && <Text>email is required</Text>}
@@ -113,7 +113,7 @@ const LoginScreen = () => {
                 required:true
               }}
               render={({field: {value, onChange}}) => (
-                <Input
+                <CustomInput
                   placeholder="Password"
                   value={value}
                   onChange={onChange}

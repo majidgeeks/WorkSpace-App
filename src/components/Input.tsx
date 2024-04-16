@@ -1,27 +1,34 @@
 import * as React from 'react';
-import {View, StyleSheet, TextInput, TextStyle} from 'react-native';
+import {View, StyleSheet, TextStyle} from 'react-native';
+import { Input } from '@rneui/themed';
 
-interface InputProps {
-  placeholder: string;
+
+
+interface CustomInputProps {
+  placeholder?: string;
   value: string;
   onChange: (text: string) => void;
   style?: TextStyle;
+  label? : string
 }
 
-const Input: React.FC<InputProps> = ({placeholder, value, onChange, style}) => {
+const CustomInput: React.FC<CustomInputProps> = ({placeholder, value, onChange, style, label}) => {
   return (
     <View style={styles.container}>
-      <TextInput
+      <Input 
         style={[styles.txtInput, style]}
         placeholder={placeholder}
         value={value}
         onChangeText={onChange}
-      />
+        label={label}
+        /> 
+        
+      
     </View>
   );
 };
 
-export default Input;
+export default CustomInput;
 
 const styles = StyleSheet.create({
   container: {},

@@ -14,6 +14,7 @@ import {useNavigation} from '@react-navigation/native';
 import {Images} from '../assets/images';
 import {useForm, Controller} from 'react-hook-form';
 import { moderateScale } from 'react-native-size-matters';
+import CustomInput from '../components/Input';
 
 interface SignUpScreenProps {}
 
@@ -80,7 +81,7 @@ const SignUpScreen = () => {
                required:true
               }}
               render={({field: {value, onChange}}) => (
-                <Input placeholder="Email" value={value} onChange={onChange} />
+                <CustomInput placeholder="Email" value={value} onChange={onChange} />
               )}
             />
             {errors.email && <Text>email is required</Text>}
@@ -88,7 +89,7 @@ const SignUpScreen = () => {
               control={control}
               name="password"
               render={({field: {value, onChange}}) => (
-                <Input
+                <CustomInput
                   placeholder="Password"
                   value={value}
                   onChange={onChange}
