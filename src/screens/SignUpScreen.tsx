@@ -81,7 +81,8 @@ const SignUpScreen = () => {
                required:true
               }}
               render={({field: {value, onChange}}) => (
-                <CustomInput placeholder="Email" value={value} onChange={onChange} />
+                <CustomInput placeholder="Email" value={value} onChange={onChange} 
+                inputContainerStyle={{borderBottomWidth:0}}/>
               )}
             />
             {errors.email && <Text>email is required</Text>}
@@ -93,6 +94,7 @@ const SignUpScreen = () => {
                   placeholder="Password"
                   value={value}
                   onChange={onChange}
+                  inputContainerStyle={{borderBottomWidth:0}}
                 />
               )}
             />

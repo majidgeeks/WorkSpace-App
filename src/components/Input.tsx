@@ -1,30 +1,39 @@
 import * as React from 'react';
 import {View, StyleSheet, TextStyle} from 'react-native';
-import { Input } from '@rneui/themed';
-
-
+import {Input} from '@rneui/themed';
 
 interface CustomInputProps {
   placeholder?: string;
   value: string;
   onChange: (text: string) => void;
   style?: TextStyle;
-  label? : string
+  label?: string;
+  labelStyle?: TextStyle;
+  inputContainerStyle?: TextStyle;
+  disabled? : boolean
 }
 
-const CustomInput: React.FC<CustomInputProps> = ({placeholder, value, onChange, style, label}) => {
+const CustomInput: React.FC<CustomInputProps> = ({
+  placeholder,
+  value,
+  onChange,
+  style,
+  label,
+  labelStyle,
+  inputContainerStyle,
+  disabled
+}) => {
   return (
-    <View style={styles.container}>
-      <Input 
-        style={[styles.txtInput, style]}
-        placeholder={placeholder}
-        value={value}
-        onChangeText={onChange}
-        label={label}
-        /> 
-        
-      
-    </View>
+    <Input
+      style={[styles.txtInput, style]}
+      placeholder={placeholder}
+      value={value}
+      onChangeText={onChange}
+      label={label}
+      labelStyle={labelStyle}
+      inputContainerStyle={inputContainerStyle}
+      disabled={disabled}
+    />
   );
 };
 
@@ -37,7 +46,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     borderRadius: 10,
     marginVertical: 5,
-    paddingLeft:15,
-    
+    paddingLeft: 15,
   },
 });

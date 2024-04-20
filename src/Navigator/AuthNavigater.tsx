@@ -1,20 +1,23 @@
 // In App.js in a new project
 
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Text, TouchableOpacity } from 'react-native';
 import LoginScreen from '../screens/LoginScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import SelectFlowScreen from '../screens/SelectFlowScreen';
 import SelectComScreen from '../screens/SelectComScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import LeftIcon from '../components/Svgs/LeftIcon';
+
 
 
 const Stack = createNativeStackNavigator();
 
-function Navigater() {
+function AuthNavigator() {
+
   return (
-    <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown:false, }}>
         <Stack.Screen  name="Login" component={LoginScreen} options={{
           
@@ -32,12 +35,23 @@ function Navigater() {
         }} />
        
        <Stack.Screen name="Profile" component={ProfileScreen} options={{
-          title:"Private Information"
+           title:"Private Information",
+           headerTitleAlign:"center",
+           headerShown:true, 
+          headerLeft:()=>(
+            <TouchableOpacity  style={{marginHorizontal:10}}>
+              <LeftIcon />
+            </TouchableOpacity>
+            
+          ),
+          
+        
         }} />
+
+       
         
       </Stack.Navigator>
-    </NavigationContainer>
   );
 }
 
-export default Navigater;
+export default AuthNavigator;

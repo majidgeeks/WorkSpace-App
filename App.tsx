@@ -6,6 +6,7 @@ import SelectComScreen from './src/screens/SelectComScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthNavigator from './src/Navigator/AuthNavigater';
+import BottomTabNavigation from './src/Navigator/BottomNavigator';
 
 
 
@@ -15,7 +16,8 @@ const App = () => {
       // <LoginScreen/>
       // <SignUpScreen />
     <NavigationContainer>
-      <AuthNavigator />
+      {/* <AuthNavigator /> */}
+      <BottomTabNavigation />
     </NavigationContainer> 
       // <SelectFlowScreen />
       // <SelectComScreen />

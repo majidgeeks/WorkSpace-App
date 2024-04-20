@@ -145,6 +145,7 @@ const SelectFlowScreen = () => {
       const docAdded = await firestore().collection('Users').add(userData);
       console.log('User added!');
       const dataId = docAdded.id;
+
       navigation.navigate('SelectCommunity', {dataId});
     } catch (err) {
       console.log('err', err);
@@ -161,7 +162,6 @@ const SelectFlowScreen = () => {
             melt away.
           </Text>
           <Text style={styles.midTxt}>How do you find your Flow?</Text>
-
           <View style={{height: '70%'}}>
             <DragList
               data={selectedFlow}
