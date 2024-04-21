@@ -4,5 +4,7 @@ export enum Color{
     black = "#000",
     whiteSecondary = "#FCFCFC",
     darkGrey = "#323232",
+    darkBlue = "#18255F",
+    mapColor = "#D9D9D9"
 }
 
