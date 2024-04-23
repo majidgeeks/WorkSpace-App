@@ -30,7 +30,9 @@ function BottomTabNavigation() {
     }}
       />
       <Tab.Screen name="Favourites" component={FavouritesScreen} 
-      options={{tabBarIcon:({focused})=>(<FavouritesIcon color={focused ? Color.primary : Color.whiteSecondary} size={25}/>)}}
+      options={{tabBarIcon:({focused})=>(<FavouritesIcon color={focused ? Color.primary : Color.whiteSecondary} size={25}/>),
+                headerShown:false
+    }}
       />
       <Tab.Screen name="Bookings" component={BookingsScreen} 
       options={{tabBarIcon:({focused})=>(<BookingsIcon color={focused ? Color.primary : Color.whiteSecondary} size={24} />)}}
