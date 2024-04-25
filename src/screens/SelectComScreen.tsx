@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#B52337',
     fontSize: moderateScale(18),
-    marginVertical: 18,
+    marginVertical: moderateScale(18),
     fontWeight: '500',
   },
   tagView: {

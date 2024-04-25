@@ -160,7 +160,7 @@ const EploreScreen = (props: EploreScreenProps) => {
               </TouchableOpacity>
               {showDatePicker ? (
                 <DateTimePicker
-                  onChange={(event, selectedDate) => {
+                  onChange={selectedDate => {
                     if (selectedDate) {
                       onChange(selectedDate);
                       setShowDatePicker(false);
@@ -179,7 +179,7 @@ const EploreScreen = (props: EploreScreenProps) => {
       </View>
       <View style={{height: '81%'}}>
         <View style={{marginTop: moderateScale(4)}}>
-          <Image style={{}} resizeMode="cover" source={Images.mapImag} />
+          <Image resizeMode="cover" source={Images.mapImag} />
         </View>
         {/* card start here */}
         <FlatList
@@ -188,8 +188,7 @@ const EploreScreen = (props: EploreScreenProps) => {
           renderItem={({item}) => (
             <View style={styles.flatListView}>
               <Image style={{width: '100%'}} source={item.image} />
-              <View
-                style={styles.flatlistView2}>
+              <View style={styles.flatlistView2}>
                 <Text style={styles.titleTxt}>{item.title}</Text>
                 <FavouritesIcon size={30} color={Color.darkGrey} />
               </View>
@@ -293,7 +292,7 @@ const styles = StyleSheet.create({
     width: '92%',
     padding: moderateScale(10),
   },
-  flatlistView2:{
+  flatlistView2: {
     flexDirection: 'row',
     width: '94%',
     justifyContent: 'space-between',

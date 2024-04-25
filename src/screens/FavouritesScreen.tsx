@@ -21,7 +21,7 @@ const cardsData = [
     image: Images.moonImage,
     title: 'Warn Spaces',
     favourity: <FavouriteFilledIcon size={25} color={Color.primary} />,
-    unFavour: <FavouritesIcon size={25} color={Color.white} />,
+    unFavour: <FavouritesIcon size={25} color={Color.mapColor} />,
     gender: 'Female only ,',
     community: 'LGBTQ +2',
     usersImage: Images.moonImage,
@@ -32,7 +32,7 @@ const cardsData = [
     image: Images.moonImage,
     title: 'Warn Spaces',
     favourity: <FavouriteFilledIcon size={25} color={Color.primary} />,
-    unFavour: <FavouritesIcon size={25} color={Color.white} />,
+    unFavour: <FavouritesIcon size={25} color={Color.mapColor} />,
     gender: 'Female only ,',
     community: 'LGBTQ +2',
     usersImage: Images.moonImage,
@@ -43,7 +43,7 @@ const cardsData = [
     image: Images.moonImage,
     title: 'Warn Spaces',
     favourity: <FavouriteFilledIcon size={25} color={Color.primary} />,
-    unFavour: <FavouritesIcon size={25} color={Color.white} />,
+    unFavour: <FavouritesIcon size={25} color={Color.mapColor} />,
     gender: 'Female only ,',
     community: 'LGBTQ +2',
     usersImage: Images.moonImage,
@@ -54,7 +54,7 @@ const cardsData = [
     image: Images.moonImage,
     title: 'Warn Spaces',
     favourity: <FavouriteFilledIcon size={25} color={Color.primary} />,
-    unFavour: <FavouritesIcon size={25} color={Color.white} />,
+    unFavour: <FavouritesIcon size={25} color={Color.mapColor} />,
     gender: 'Female only ,',
     community: 'LGBTQ +2',
     usersImage: Images.moonImage,
@@ -65,7 +65,7 @@ const cardsData = [
     image: Images.moonImage,
     title: 'Warn Spaces',
     favourity: <FavouriteFilledIcon size={25} color={Color.primary} />,
-    unFavour: <FavouritesIcon size={25} color={Color.white} />,
+    unFavour: <FavouritesIcon size={25} color={Color.mapColor} />,
     gender: 'Female only ,',
     community: 'LGBTQ +2',
     usersImage: Images.moonImage,
@@ -76,7 +76,7 @@ const cardsData = [
     image: Images.moonImage,
     title: 'Warn Spaces',
     favourity: <FavouriteFilledIcon size={25} color={Color.primary} />,
-    unFavour: <FavouritesIcon size={25} color={Color.white} />,
+    unFavour: <FavouritesIcon size={25} color={Color.mapColor} />,
     gender: 'Female only ,',
     community: 'LGBTQ +2',
     usersImage: Images.moonImage,
@@ -87,7 +87,7 @@ const cardsData = [
     image: Images.moonImage,
     title: 'Warn Spaces',
     favourity: <FavouriteFilledIcon size={25} color={Color.primary} />,
-    unFavour: <FavouritesIcon size={25} color={Color.white} />,
+    unFavour: <FavouritesIcon size={25} color={Color.mapColor} />,
     gender: 'Female only ,',
     community: 'LGBTQ +2',
     usersImage: Images.moonImage,
@@ -98,7 +98,7 @@ const cardsData = [
     image: Images.moonImage,
     title: 'Warn Spaces',
     favourity: <FavouriteFilledIcon size={25} color={Color.primary} />,
-    unFavour: <FavouritesIcon size={25} color={Color.white} />,
+    unFavour: <FavouritesIcon size={25} color={Color.mapColor} />,
     gender: 'Female only ,',
     community: 'LGBTQ +2',
     usersImage: Images.moonImage,
@@ -113,14 +113,16 @@ const FavouritesScreen = (props: FavouritesScreenProps) => {
     console.log('index number', index);
     const updatedArray = [...selectedIcon];
     updatedArray.push(index);
+    console.log("updated array", updatedArray)
     setSelectedIcon(updatedArray);
-    console.log(selectedIcon);
+    console.log("selected icon",selectedIcon);
   };
 
   const changeIconToOutline = (index: number): void => {
     const updatedArray = [...selectedIcon];
     updatedArray.splice(index, 1);
     setSelectedIcon(updatedArray);
+    console.log("updatedArray",updatedArray)
   };
 
   return (
@@ -140,22 +142,10 @@ const FavouritesScreen = (props: FavouritesScreenProps) => {
         data={cardsData}
         renderItem={({item, index}) => (
           <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              marginVertical: moderateScale(10),
-              borderBottomWidth: 1,
-              borderBottomColor: Color.mapColor,
-              paddingBottom: moderateScale(10),
-            }}>
+            style={styles.cardsParent}>
             <Image
               source={item.image}
-              style={{
-                width: 150,
-                height: 100,
-                borderRadius: 10,
-                marginRight: moderateScale(5),
-              }}
+              style={styles.image}
             />
             <View
               style={{
@@ -193,15 +183,15 @@ const FavouritesScreen = (props: FavouritesScreenProps) => {
                 </View>
                 <View style={{marginLeft: moderateScale(10)}}>
                   {selectedIcon.includes(index) ? (
-                    <TouchableOpacity onPress={() => changeIconToFilled(index)}>
+                    <TouchableOpacity onPress={() => changeIconToOutline(index)}>
                       {item.favourity}
                     </TouchableOpacity>
-                  ) : (
+                   ) : ( 
                     <TouchableOpacity
-                      onPress={() => changeIconToOutline(index)}>
+                      onPress={() => changeIconToFilled(index)}>
                       {item.unFavour}
                     </TouchableOpacity>
-                  )}
+                   ) } 
                 </View>
               </View>
             </View>
@@ -217,4 +207,18 @@ export default FavouritesScreen;
 
 const styles = StyleSheet.create({
   container: {flex: 1},
+  cardsParent:{
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginVertical: moderateScale(10),
+    borderBottomWidth: 1,
+    borderBottomColor: Color.mapColor,
+    paddingBottom: moderateScale(10),
+  },
+  image:{
+    width: 150,
+    height: 100,
+    borderRadius: 10,
+    marginRight: moderateScale(5),
+  },
 });

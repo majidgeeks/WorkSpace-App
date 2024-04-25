@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View, StyleSheet, Image, TouchableOpacity, ScrollView} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import {
   launchImageLibrary as _launchImageLibrary,
   launchCamera as _launchCamera,
@@ -28,7 +35,7 @@ const ProfileScreen = () => {
   const [selectedImage, setSelectedImage] = useState(); // for image picker
   const route = useRoute<RouteProp<any>>();
   const dataId = route.params?.id;
-  console.log("dataId",dataId);
+  console.log('dataId', dataId);
 
   const user = auth().currentUser;
   const userId = user?.uid;
@@ -41,13 +48,13 @@ const ProfileScreen = () => {
     defaultValues: {
       fullName: '',
       email: user?.email ?? '',
-      code: "+92",
+      code: '+92',
       contact: '',
       parent: false,
       caregiver: false,
     },
   });
-  console.log("errors",errors)
+  console.log('errors', errors);
 
   //functions for image picker starts here
   const handleCameraLaunch = () => {
@@ -77,7 +84,7 @@ const ProfileScreen = () => {
   //   console.log('selectimage', selectedImage);
 
   const onSubmit = async (data: any) => {
-    console.log("onSubmit")
+    console.log('onSubmit');
     try {
       const concatNum = data.code.value.concat(data.contact);
       const payload = {
@@ -101,232 +108,206 @@ const ProfileScreen = () => {
 
   return (
     <View style={styles.container}>
-        <ScrollView>
-      <View style={{alignItems: 'center', marginTop: moderateScale(40)}}>
-        <Image
-          source={{uri: selectedImage}}
-          style={{
-            width: 125,
-            height: 125,
-            borderRadius: 60,
-            borderWidth: 3,
-            borderColor: 'red',
-          }}
-        />
-        <TouchableOpacity
-          style={{position: 'absolute', top: 110}}
-          onPress={handleCameraLaunch}>
-          <EditPicIcon />
-        </TouchableOpacity>
-      </View>
+      <ScrollView>
+        <View style={{alignItems: 'center', marginTop: moderateScale(40)}}>
+          <Image source={{uri: selectedImage}} style={styles.image} />
+          <TouchableOpacity
+            style={{position: 'absolute', top: 110}}
+            onPress={handleCameraLaunch}>
+            <EditPicIcon />
+          </TouchableOpacity>
+        </View>
 
-      <View style={{marginTop: moderateScale(25)}}>
-        <View style={{borderTopWidth: 2, borderTopColor: '#EDEDED'}}>
-          <Controller
-            name="fullName"
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({field: {onChange, value}, fieldState: {error}}) => (
-              <>
-                <CustomInput
-                  label="Full Name"
-                  value={value}
-                  onChange={onChange}
-                  labelStyle={{
-                    fontWeight: '300',
-                    color: '#18255F',
-                    marginLeft: moderateScale(10),
-                    marginTop: moderateScale(5),
-                  }}
-                  inputContainerStyle={{
-                    borderBottomWidth: 0,
-                    marginBottom: -12,
-                  }}
-                  style={{backgroundColor: '#EDEDED'}}
-                />
-                {error?.message ? <Text>{error.message}</Text> : null}
-              </>
-            )}
-          />
-        </View>
-        <View style={{borderTopWidth: 2, borderTopColor: '#EDEDED'}}>
-          <Controller
-            name="email"
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({field: {value, onChange}, fieldState: {error}}) => (
-              <>
-                <CustomInput
-                  disabled={true}
-                  label="Working email address"
-                  value={value}
-                  onChange={onChange}
-                  labelStyle={{
-                    fontWeight: '300',
-                    color: '#18255F',
-                    marginLeft: moderateScale(10),
-                    marginTop: moderateScale(5),
-                  }}
-                  inputContainerStyle={{
-                    borderBottomWidth: 0,
-                    marginBottom: -22,
-                  }}
-                  style={{backgroundColor: '#EDEDED'}}
-                />
-                {error?.message ? <Text>{error.message}</Text> : null}
-              </>
-            )}
-          />
-        </View>
-        <View
-          style={{
-            borderTopWidth: 2,
-            borderTopColor: '#EDEDED',
-            flexDirection: 'row',
-            paddingHorizontal: 20,
-            marginTop: 10,
-          }}>
-          <Controller
-            name="code"
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({field: {value, onChange}, fieldState: {error}}) => (
-              <>
-                <Dropdown
-                  style={styles.dropdown}
-                  placeholderStyle={styles.placeholderStyle}
-                  selectedTextStyle={styles.selectedTextStyle}
-                  containerStyle={{backgroundColor:"red", marginTop:-30}}
-                  data={countryCodes}
-                  maxHeight={300}
-                  labelField="label"
-                  valueField="value"
-                  value={value}
-                  onChange={onChange}
-                />
-                {error?.message ? <Text>{error.message}</Text> : null}
-              </>
-            )}
-          />
-          <Controller
-            control={control}
-            name="contact"
-            rules={{
-              required: true,
-            }}
-            render={({field: {value, onChange}, fieldState: {error}}) => (
-              <>
-                <CustomInput
-                  value={value}
-                  onChange={onChange}
-                  placeholder="3456789096"
-                  style={{backgroundColor: '#EDEDED', marginHorizontal: 0}}
-                  label="Contact"
-                  labelStyle={{
-                    fontWeight: '300',
-                    color: '#18255F',
-                    position: 'absolute',
-                    bottom: 85,
-                    right: 346,
-                    top: 5,
-                  }}
-                  inputContainerStyle={{
-                    borderBottomWidth: 0,
-                    width: '75%',
-                    marginTop: 27,
-                  }}
-                />
-                {!error?.message ? <Text>{error?.message}</Text> : null}
-              </>
-            )}
-          />
-        </View>
-      </View>
-      <View>
-        <View
-          style={{
-            borderTopWidth: 2,
-            borderTopColor: '#EDEDED',
-            marginTop: -10,
-          }}>
-          <Text
+        <View style={{marginTop: moderateScale(25)}}>
+          <View style={{borderTopWidth: 2, borderTopColor: '#EDEDED'}}>
+            <Controller
+              name="fullName"
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({field: {onChange, value}, fieldState: {error}}) => (
+                <>
+                  <CustomInput
+                    label="Full Name"
+                    value={value}
+                    onChange={onChange}
+                    labelStyle={{
+                      fontWeight: '300',
+                      color: '#18255F',
+                      marginLeft: moderateScale(10),
+                      marginTop: moderateScale(5),
+                    }}
+                    inputContainerStyle={{
+                      borderBottomWidth: 0,
+                      marginBottom: moderateScale(-12),
+                    }}
+                    style={{backgroundColor: '#EDEDED'}}
+                  />
+                  {error?.message ? <Text>{error.message}</Text> : null}
+                </>
+              )}
+            />
+          </View>
+          <View style={{borderTopWidth: 2, borderTopColor: '#EDEDED'}}>
+            <Controller
+              name="email"
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({field: {value, onChange}, fieldState: {error}}) => (
+                <>
+                  <CustomInput
+                    disabled={true}
+                    label="Working email address"
+                    value={value}
+                    onChange={onChange}
+                    labelStyle={{
+                      fontWeight: '300',
+                      color: '#18255F',
+                      marginLeft: moderateScale(10),
+                      marginTop: moderateScale(5),
+                    }}
+                    inputContainerStyle={{
+                      borderBottomWidth: 0,
+                      marginBottom: moderateScale(-22),
+                    }}
+                    style={{backgroundColor: '#EDEDED'}}
+                  />
+                  {error?.message ? <Text>{error.message}</Text> : null}
+                </>
+              )}
+            />
+          </View>
+          <View
             style={{
-              fontSize: moderateScale(16),
-              color: '#18255F',
+              borderTopWidth: 2,
+              borderTopColor: '#EDEDED',
+              flexDirection: 'row',
+              paddingHorizontal: moderateScale(20),
               marginTop: moderateScale(10),
-              marginLeft: moderateScale(20),
             }}>
-            Are you a parent ?
-          </Text>
-          <Controller
-            name="parent"
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({field: {value, onChange}, fieldState: {error}}) => (
-              <>
-                <Switch
-                  style={{marginTop: -20, marginRight: 10}}
-                  value={value}
-                  onValueChange={onChange}
-                  thumbColor={'white'}
-                  trackColor={{true: '#18255F', false: 'red'}}
-                />
-                {error?.message ? <Text>{error.message}</Text> : null}
-              </>
-            )}
-          />
+            <Controller
+              name="code"
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({field: {value, onChange}, fieldState: {error}}) => (
+                <>
+                  <Dropdown
+                    style={styles.dropdown}
+                    placeholderStyle={styles.placeholderStyle}
+                    selectedTextStyle={styles.selectedTextStyle}
+                    containerStyle={{
+                      backgroundColor: 'red',
+                      marginTop: moderateScale(-30),
+                    }}
+                    data={countryCodes}
+                    maxHeight={300}
+                    labelField="label"
+                    valueField="value"
+                    value={value}
+                    onChange={onChange}
+                  />
+                  {error?.message ? <Text>{error.message}</Text> : null}
+                </>
+              )}
+            />
+            <Controller
+              control={control}
+              name="contact"
+              rules={{
+                required: true,
+              }}
+              render={({field: {value, onChange}, fieldState: {error}}) => (
+                <>
+                  <CustomInput
+                    value={value}
+                    onChange={onChange}
+                    placeholder="3456789096"
+                    style={{
+                      backgroundColor: '#EDEDED',
+                      marginHorizontal: moderateScale(0),
+                    }}
+                    label="Contact"
+                    labelStyle={styles.contactInputLableStyle}
+                    inputContainerStyle={{
+                      borderBottomWidth: 0,
+                      width: '75%',
+                      marginTop: moderateScale(27),
+                    }}
+                  />
+                  {!error?.message ? <Text>{error?.message}</Text> : null}
+                </>
+              )}
+            />
+          </View>
         </View>
-        <View
-          style={{
-            marginTop: moderateScale(15),
-            borderTopWidth: 2,
-            borderTopColor: '#EDEDED',
-            borderBottomWidth: 2,
-            borderBottomColor: '#EDEDED',
-          }}>
-          <Text
+        <View>
+          <View
             style={{
-              fontSize: moderateScale(16),
-              color: '#18255F',
-              marginVertical: moderateScale(12),
-              marginLeft: moderateScale(20),
+              borderTopWidth: 2,
+              borderTopColor: '#EDEDED',
+              marginTop: moderateScale(-10),
             }}>
-            Are you an elderly caregiver ?
-          </Text>
-          <Controller
-            name="caregiver"
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({field: {value, onChange}, fieldState: {error}}) => (
-              <>
-                <Switch
-                  style={{position: 'absolute', bottom: 10, right: 14}}
-                  value={value}
-                  onValueChange={onChange}
-                  trackColor={{true: '#18255F', false: 'red'}}
-                  thumbColor={'white'}
-                />
-                {error?.message ? <Text>{error.message}</Text> : null}
-              </>
-            )}
-          />
+            <Text style={styles.parentTxt}>Are you a parent ?</Text>
+            <Controller
+              name="parent"
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({field: {value, onChange}, fieldState: {error}}) => (
+                <>
+                  <Switch
+                    style={{
+                      marginTop: moderateScale(-20),
+                      marginRight: moderateScale(10),
+                    }}
+                    value={value}
+                    onValueChange={onChange}
+                    thumbColor={'white'}
+                    trackColor={{true: '#18255F', false: 'red'}}
+                  />
+                  {error?.message ? <Text>{error.message}</Text> : null}
+                </>
+              )}
+            />
+          </View>
+          <View style={styles.elserTxtView}>
+            <Text style={styles.elderTxt}>Are you an elderly caregiver ?</Text>
+            <Controller
+              name="caregiver"
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({field: {value, onChange}, fieldState: {error}}) => (
+                <>
+                  <Switch
+                    style={{
+                      position: 'absolute',
+                      bottom: moderateScale(10),
+                      right: moderateScale(14),
+                    }}
+                    value={value}
+                    onValueChange={onChange}
+                    trackColor={{true: '#18255F', false: 'red'}}
+                    thumbColor={'white'}
+                  />
+                  {error?.message ? <Text>{error.message}</Text> : null}
+                </>
+              )}
+            />
+          </View>
+          <TouchableOpacity
+            style={styles.saveBtn}
+            onPress={handleSubmit(onSubmit)}>
+            <Text style={styles.saveBtnTxt}>Save Changes</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={styles.saveBtn}
-          onPress={handleSubmit(onSubmit)}>
-          <Text style={styles.saveBtnTxt}>Save Changes</Text>
-        </TouchableOpacity>
-      </View>
       </ScrollView>
     </View>
   );
@@ -336,6 +317,13 @@ export default ProfileScreen;
 
 const styles = StyleSheet.create({
   container: {flex: 1},
+  image: {
+    width: 125,
+    height: 125,
+    borderRadius: 60,
+    borderWidth: 3,
+    borderColor: 'red',
+  },
   dropdown: {
     marginTop: moderateScale(32),
     height: 45,
@@ -343,7 +331,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderRadius: 8,
     paddingHorizontal: 20,
-    width: 85,
+    width: 90,
   },
   label: {
     position: 'absolute',
@@ -358,6 +346,33 @@ const styles = StyleSheet.create({
   },
   selectedTextStyle: {
     fontSize: 16,
+  },
+  contactInputLableStyle: {
+    fontWeight: '300',
+    color: '#18255F',
+    position: 'absolute',
+    bottom: moderateScale(85),
+    right: moderateScale(346),
+    top: moderateScale(5),
+  },
+  parentTxt: {
+    fontSize: moderateScale(16),
+    color: '#18255F',
+    marginTop: moderateScale(10),
+    marginLeft: moderateScale(20),
+  },
+  elserTxtView: {
+    marginTop: moderateScale(15),
+    borderTopWidth: 2,
+    borderTopColor: '#EDEDED',
+    borderBottomWidth: 2,
+    borderBottomColor: '#EDEDED',
+  },
+  elderTxt: {
+    fontSize: moderateScale(16),
+    color: '#18255F',
+    marginVertical: moderateScale(12),
+    marginLeft: moderateScale(20),
   },
   saveBtn: {
     borderWidth: 1,
