@@ -35,7 +35,10 @@ function BottomTabNavigation() {
     }}
       />
       <Tab.Screen name="Bookings" component={BookingsScreen} 
-      options={{tabBarIcon:({focused})=>(<BookingsIcon color={focused ? Color.primary : Color.whiteSecondary} size={24} />)}}
+      options={{tabBarIcon:({focused})=>(<BookingsIcon color={focused ? Color.primary : Color.whiteSecondary} size={24} />),
+                headerShown:false
+
+    }}
       />
       <Tab.Screen name="Chat" component={ChatScreen} 
       options={{tabBarIcon:({focused})=>(<ChatIcon color={focused ? Color.primary : Color.whiteSecondary} size={22} />)}}
