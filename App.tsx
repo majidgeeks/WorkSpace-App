@@ -7,6 +7,8 @@ import ProfileScreen from './src/screens/ProfileScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthNavigator from './src/Navigator/AuthNavigater';
 import BottomTabNavigation from './src/Navigator/BottomNavigator';
+import PreviewScreen from './src/screens/PreviewScreen';
+import FeatureScreen from './src/screens/FeatureScreen';
 
 
 
@@ -15,10 +17,12 @@ const App = () => {
   return (
       // <LoginScreen/>
       // <SignUpScreen />
-    <NavigationContainer>
-      {/* <AuthNavigator /> */}
-      <BottomTabNavigation />
-    </NavigationContainer> 
+      <FeatureScreen />
+      // <PreviewScreen />
+    // <NavigationContainer>
+      // {/* <AuthNavigator /> */}
+      // {/* <BottomTabNavigation /> */}
+    // {/* </NavigationContainer>  */}
       // <SelectFlowScreen />
       // <SelectComScreen />
       // <ProfileScreen />
