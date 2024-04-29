@@ -138,7 +138,6 @@ const FavouritesScreen = (props: FavouritesScreenProps) => {
         </Text>
       </View>
       <FlatList
-        contentContainerStyle={{}}
         data={cardsData}
         renderItem={({item, index}) => (
           <View

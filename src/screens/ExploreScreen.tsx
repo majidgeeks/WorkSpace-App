@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '20%',
-    marginRight: 10,
+    marginRight: moderateScale(10),
   },
   searchView: {
     height: '7%',

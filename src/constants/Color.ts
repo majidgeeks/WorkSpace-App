@@ -6,6 +6,8 @@ export enum Color{
     whiteSecondary = "#FCFCFC",
     darkGrey = "#323232",
     darkBlue = "#18255F",
-    mapColor = "#D9D9D9"
+    mapColor = "#D9D9D9",
+    pink = "#FFECEE",
+    lightGrey = "#EDEDED",
 }
 
