@@ -11,8 +11,8 @@ function ChatIcon({color, size}: ChatIconProps) {
   return (
     <SvgScaleView size={size}>
     <Svg
-      width={22}
-      height={21}
+      width="100%"
+      height="100%"
       viewBox="0 0 22 21"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

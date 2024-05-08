@@ -54,5 +54,6 @@ const FeatureScreen = (props: FeatureScreenProps) => {
 export default FeatureScreen;
 
 const styles = StyleSheet.create({
-  container: {flex:1}
+  container: 
+  {flex:1}
 });

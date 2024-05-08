@@ -9,6 +9,9 @@ import AuthNavigator from './src/Navigator/AuthNavigater';
 import BottomTabNavigation from './src/Navigator/BottomNavigator';
 import PreviewScreen from './src/screens/PreviewScreen';
 import FeatureScreen from './src/screens/FeatureScreen';
+import AboutScreen from './src/screens/AboutScreen';
+import WorkspaceDetailsScreen from './src/screens/WorkspaceDetailsScreen';
+import WorkspaceStackNavigation from './src/Navigator/PractiseNavigator';
 
 
 
@@ -17,7 +20,10 @@ const App = () => {
   return (
       // <LoginScreen/>
       // <SignUpScreen />
-      <FeatureScreen />
+      <WorkspaceStackNavigation />
+      // <WorkspaceDetailsScreen />
+      // <AboutScreen />
+      // <FeatureScreen />
       // <PreviewScreen />
     // <NavigationContainer>
       // {/* <AuthNavigator /> */}
