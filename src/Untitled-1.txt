@@ -1,0 +1,23 @@
+USER -> {
+    fullname:string
+    email:string
+    avatar: string (url to firebase bucket)
+    contactNo: string // "+13434123"
+    onboarding: boolean
+    flow: number[] // 2,1,9,3,7,4,5,0
+    communities: number[]
+    isParent: boolean
+}
+
+user collection
+ {
+    fullname: "",
+    email: "asd@ad.com" // get it from firebase auth
+    avatar: "",
+    contactNo: "",
+    onboarding: true,
+    flow: [6,9,0,1,2,3,4,5,,7],
+    communities: [1,2]
+    isParent: false,
+    userId : "" // firebase current user id
+ }
