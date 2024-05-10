@@ -7,6 +7,7 @@ export const Images = {
     mapImag : require("./MapImage.png"),
     image1 : require("./Image1.png"),
     moonImage : require("./nature-image.jpg"),
-    WorkspaceImage : require("./workSpaceImage.jpg")
+    WorkspaceImage : require("./workSpaceImage.jpg"),
+    masterCard : require("./masterCard.png")
 }
 
