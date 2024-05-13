@@ -5,11 +5,11 @@ export enum Color{
     black = "#000",
     whiteSecondary = "#FCFCFC",
     darkGrey = "#323232",
+    lightGrey = "#EDEDED",
     darkBlue = "#18255F",
     mapColor = "#D9D9D9",
     pink = "#FFECEE",
     darkPink = "#FFD4D4",
-    lightGrey = "#EDEDED",
     lightGreen = "#B6E3B7",
     lightPurple = "#F6E3FC",
 

@@ -26,9 +26,9 @@ const App = () => {
       // <FeatureScreen />
       // <PreviewScreen />
     // <NavigationContainer>
-      // {/* <AuthNavigator /> */}
-      // {/* <BottomTabNavigation /> */}
-    // {/* </NavigationContainer>  */}
+        /* <AuthNavigator />  */
+        // <BottomTabNavigation />  
+      // </NavigationContainer>  
       // <SelectFlowScreen />
       // <SelectComScreen />
       // <ProfileScreen />
