@@ -26,6 +26,7 @@ import MyBalanceIcon from '../components/Svgs/MyBalanceIcon';
 import ApplePayIcon from '../components/Svgs/ApplePayIcon';
 import GpayIcon from '../components/Svgs/GpayIcon';
 import CorrectSignOutlineIcon from '../components/Svgs/CorrectSignOutlineIcon';
+import {useNavigation} from '@react-navigation/native';
 
 interface BookingWorkspaceScreenProps {}
 
@@ -33,6 +34,8 @@ const BookingWorkspaceScreen = (props: BookingWorkspaceScreenProps) => {
   const [selectedId, setSelectedId] = useState<string | undefined>();
   const [selectedWallet, setSelectedWallet] = useState<string | undefined>();
   const [selectGpay, setselectGpay] = useState<string | undefined>();
+  const [save, setSave] = useState(false);
+  const navigation = useNavigation();
 
   // console.log(selectedId)
 
@@ -144,20 +147,21 @@ const BookingWorkspaceScreen = (props: BookingWorkspaceScreenProps) => {
       email: '',
       newCard: '',
       expiryDate: '',
+      cvv: '',
     },
   });
 
+  const changeToUnSelect = () => {
+    setSave(previous => !previous);
+  };
+
+  // console.log("save", save)
+
   return (
     <View style={styles.container}>
-      <ScrollView style={{backgroundColor:Color.white}}>
-        <View
-          style={{
-            flexDirection: 'row',
-            marginHorizontal: moderateScale(15),
-            marginTop: moderateScale(10),
-            backgroundColor:Color.white
-          }}>
-          <TouchableOpacity>
+      <ScrollView style={{backgroundColor: Color.white}}>
+        <View style={styles.container1}>
+          <TouchableOpacity onPress={navigation.goBack}>
             <LeftIcon />
           </TouchableOpacity>
           <Text
@@ -169,26 +173,8 @@ const BookingWorkspaceScreen = (props: BookingWorkspaceScreenProps) => {
             Booking
           </Text>
         </View>
-
-        <View
-          style={{
-            marginTop: moderateScale(10),
-            backgroundColor: Color.white,
-            flexDirection: 'row',
-            borderBottomWidth: 2,
-            borderColor: Color.lightGrey,
-            paddingVertical: moderateScale(15),
-          }}>
-          <Image
-            source={Images.WorkspaceImage}
-            style={{
-              width: 150,
-              height: 90,
-              borderRadius: 10,
-              backgroundColor: 'red',
-              marginLeft: moderateScale(15),
-            }}
-          />
+        <View style={styles.topView}>
+          <Image source={Images.WorkspaceImage} style={styles.topViewImg} />
           <View
             style={{marginLeft: moderateScale(10), justifyContent: 'center'}}>
             <Text
@@ -209,16 +195,7 @@ const BookingWorkspaceScreen = (props: BookingWorkspaceScreenProps) => {
             </View>
           </View>
         </View>
-
-        <View
-          style={{
-            flexDirection: 'row',
-            paddingVertical: moderateScale(10),
-            marginHorizontal: moderateScale(5),
-            borderBottomWidth: 2,
-            borderColor: Color.lightGrey,
-            backgroundColor: Color.white,
-          }}>
+        <View style={styles.invitedView}>
           <View style={{flexDirection: 'row', marginLeft: moderateScale(10)}}>
             <Image
               source={Images.moonImage}
@@ -234,26 +211,19 @@ const BookingWorkspaceScreen = (props: BookingWorkspaceScreenProps) => {
           <Text style={{marginLeft: moderateScale(20), color: Color.primary}}>
             04 Connections Invited
           </Text>
-          <View style={{position: 'absolute', left: 276, bottom: -5}}>
+          <TouchableOpacity
+            onPress={navigation.goBack}
+            style={{position: 'absolute', left: 276, bottom: -5}}>
             <EditIcon />
-          </View>
+          </TouchableOpacity>
         </View>
-
         <View
           style={{
             borderBottomWidth: 2,
             borderColor: Color.lightGrey,
             backgroundColor: Color.white,
           }}>
-          <Text
-            style={{
-              marginLeft: moderateScale(15),
-              color: Color.black,
-              marginBottom: moderateScale(5),
-              marginTop: moderateScale(10),
-            }}>
-            Invite Others
-          </Text>
+          <Text style={styles.inviteOthersView}>Invite Others</Text>
           <View
             style={{
               flexDirection: 'row',
@@ -283,85 +253,33 @@ const BookingWorkspaceScreen = (props: BookingWorkspaceScreenProps) => {
                 </>
               )}
             />
-
-            <TouchableOpacity
-              style={{
-                backgroundColor: Color.primary,
-                marginRight: moderateScale(35),
-                marginTop: moderateScale(6),
-                height: 42,
-                paddingHorizontal: moderateScale(10),
-                paddingVertical: moderateScale(5),
-                borderRadius: 5,
-              }}>
+            <TouchableOpacity style={styles.plusIconBtn}>
               <View style={{marginTop: moderateScale(4)}}>
                 <PlusIcon />
               </View>
             </TouchableOpacity>
           </View>
         </View>
-
-        <View
-          style={{
-            borderBottomWidth: 2,
-            borderColor: Color.lightGrey,
-            paddingVertical: moderateScale(10),
-            backgroundColor: Color.white,
-          }}>
-          <Text
-            style={{
-              fontWeight: '600',
-              color: Color.darkBlue,
-              marginLeft: moderateScale(15),
-              marginTop: moderateScale(10),
-            }}>
-            Payment Summary
-          </Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              marginTop: moderateScale(10),
-              marginHorizontal: moderateScale(15),
-              justifyContent: 'space-between',
-            }}>
+        <View style={styles.summaryView}>
+          <Text style={styles.summaryTxt}>Payment Summary</Text>
+          <View style={styles.priceView}>
             <Text style={{color: Color.black}}>Price 1</Text>
             <Text style={{color: Color.primary}}>$ 25.00</Text>
           </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              marginTop: moderateScale(5),
-              marginHorizontal: moderateScale(15),
-              justifyContent: 'space-between',
-            }}>
+          <View style={styles.taxView}>
             <Text style={{color: Color.black}}>Tax (10%)</Text>
             <Text style={{color: Color.primary}}>$ 2.50</Text>
           </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              marginTop: moderateScale(15),
-              marginHorizontal: moderateScale(15),
-              justifyContent: 'space-between',
-            }}>
+          <View style={styles.totalView}>
             <Text style={{color: Color.black}}>Total</Text>
             <Text style={{color: Color.primary}}>$ 27.50</Text>
           </View>
         </View>
-
         <View
           style={{
             backgroundColor: Color.white,
           }}>
-          <Text
-            style={{
-              fontWeight: '600',
-              color: Color.darkBlue,
-              marginLeft: moderateScale(15),
-              marginTop: moderateScale(10),
-            }}>
-            Payment Via
-          </Text>
+          <Text style={styles.paymentViaTxt}>Payment Via</Text>
           <Text
             style={{
               color: Color.black,
@@ -370,19 +288,12 @@ const BookingWorkspaceScreen = (props: BookingWorkspaceScreenProps) => {
             }}>
             Credit/Debit Card
           </Text>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              // marginHorizontal: moderateScale(10),
-              marginTop: moderateScale(10),
-
-              marginRight: moderateScale(50),
-            }}>
+          <View style={styles.radioBtnView}>
             <RadioGroup
               radioButtons={radioButtons}
-              onPress={id => setSelectedId(id)}
+              onPress={id => {
+                setSelectedId(id);
+              }}
               selectedId={selectedId}
               containerStyle={{marginRight: moderateScale(85)}}
             />
@@ -399,112 +310,117 @@ const BookingWorkspaceScreen = (props: BookingWorkspaceScreenProps) => {
               </View>
             </View>
           </View>
-
-          {/* card component */}
-          <View
-            style={{
-              marginHorizontal: moderateScale(20),
-              backgroundColor: Color.lightGrey,
-              borderRadius:10
-            }}>
+          {/* card component start */}
+          {selectedId === 'ADD_NEW_CARD' ? (
             <View
               style={{
-                flexDirection: 'row',
-                marginHorizontal: moderateScale(1),
-                borderBottomWidth:2,
-                borderBottomColor:Color.mapColor
+                marginHorizontal: moderateScale(20),
+                backgroundColor: Color.lightGrey,
+                borderRadius: 10,
               }}>
-              <Text
-                style={{
-                  marginLeft: moderateScale(10),
-                  marginTop: moderateScale(10),
-                }}>
-                Card Number
-              </Text>
-              <Controller
-                name="newCard"
-                control={control}
-                render={({field: {value, onChange}}) => (
-                  <TextInput
-                    placeholder="XXXX XXXX XXXX XXXX"
-                    value={value}
-                    onChangeText={onChange}
-                    style={{width: '60%', marginHorizontal: moderateScale(10)}}
-                  />
-                )}
-              />
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                marginHorizontal: moderateScale(1),
-              }}>
-                <View style={{borderRightWidth:2, borderRightColor:Color.mapColor,
-                  flexDirection:"row"
-                }}>
-              <Text
-                style={{
-                  marginLeft: moderateScale(10),
-                  marginTop: moderateScale(10),
-                }}>
-                Expiry Date
-              </Text>
-              <Controller
-                name="expiryDate"
-                control={control}
-                render={({field: {value, onChange}}) => (
-                  <TextInput
-                    placeholder="DD/MM"
-                    value={value}
-                    onChangeText={onChange}
-                    style={{
-                      marginHorizontal: moderateScale(10),
-                    }}
-                  />
-                )}
-              />
+              <View style={styles.cardNumView}>
+                <Text
+                  style={{
+                    marginLeft: moderateScale(10),
+                    marginTop: moderateScale(10),
+                  }}>
+                  Card Number
+                </Text>
+                <Controller
+                  name="newCard"
+                  control={control}
+                  render={({field: {value, onChange}}) => (
+                    <TextInput
+                      placeholder="XXXX XXXX XXXX XXXX"
+                      value={value}
+                      onChangeText={onChange}
+                      style={{
+                        width: '60%',
+                        marginHorizontal: moderateScale(10),
+                      }}
+                    />
+                  )}
+                />
               </View>
-              <Text
+              <View
                 style={{
-                  marginLeft: moderateScale(10),
-                  marginTop: moderateScale(10),
+                  flexDirection: 'row',
+                  marginHorizontal: moderateScale(1),
                 }}>
-                CVV
-              </Text>
-              <Controller
-                name="expiryDate"
-                control={control}
-                render={({field: {value, onChange}}) => (
-                  <TextInput
-                    placeholder="0000"
-                    value={value}
-                    onChangeText={onChange}
+                <View
+                  style={{
+                    borderRightWidth: 2,
+                    borderRightColor: Color.mapColor,
+                    flexDirection: 'row',
+                  }}>
+                  <Text
                     style={{
-                      marginHorizontal: moderateScale(10),
-                    }}
+                      marginLeft: moderateScale(10),
+                      marginTop: moderateScale(10),
+                    }}>
+                    Expiry Date
+                  </Text>
+                  <Controller
+                    name="expiryDate"
+                    control={control}
+                    render={({field: {value, onChange}}) => (
+                      <TextInput
+                        placeholder="DD/MM"
+                        value={value}
+                        onChangeText={onChange}
+                        style={{
+                          marginHorizontal: moderateScale(10),
+                        }}
+                      />
+                    )}
                   />
-                )}
-              />
+                </View>
+                <Text
+                  style={{
+                    marginLeft: moderateScale(10),
+                    marginTop: moderateScale(10),
+                  }}>
+                  CVV
+                </Text>
+                <Controller
+                  name="cvv"
+                  control={control}
+                  render={({field: {value, onChange}}) => (
+                    <TextInput
+                      placeholder="0000"
+                      value={value}
+                      onChangeText={onChange}
+                      style={{
+                        marginHorizontal: moderateScale(10),
+                      }}
+                    />
+                  )}
+                />
+              </View>
             </View>
-          </View>
-          {/* card component */}
-          <View style={{flexDirection: 'row',
-              marginTop: moderateScale(10),
-              marginLeft: moderateScale(170),
-              marginHorizontal:moderateScale(1)
-              }}>
-          <TouchableOpacity
-            style={{
-              flexDirection: 'row',
-              backgroundColor:Color.primary
-            }}>
-            <CorrectSignOutlineIcon color={Color.whiteSecondary} size={18} />
-          </TouchableOpacity>
+          ) : null}
+          {/* card component end */}
+          <View style={styles.cardView}>
+            {save ? (
+              <TouchableOpacity
+                onPress={changeToUnSelect}
+                style={styles.CorrectSignBtn}>
+                <CorrectSignOutlineIcon
+                  color={Color.whiteSecondary}
+                  size={18}
+                />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                onPress={changeToUnSelect}
+                style={styles.correctSignOutline}>
+                <CorrectSignOutlineIcon color={Color.mapColor} size={18} />
+              </TouchableOpacity>
+            )}
             <Text style={{marginLeft: moderateScale(5), fontWeight: '400'}}>
               Save this card for later
             </Text>
-              </View>
-
+          </View>
           <Text
             style={{
               fontSize: moderateScale(15),
@@ -519,7 +435,6 @@ const BookingWorkspaceScreen = (props: BookingWorkspaceScreenProps) => {
             selectedId={selectedWallet}
             containerStyle={{marginRight: moderateScale(70)}}
           />
-
           <View style={{marginBottom: 200}}>
             <Text
               style={{
@@ -538,6 +453,15 @@ const BookingWorkspaceScreen = (props: BookingWorkspaceScreenProps) => {
           </View>
         </View>
       </ScrollView>
+      <View
+        style={{
+          backgroundColor: Color.primary,
+          paddingVertical: moderateScale(15),
+        }}>
+        <TouchableOpacity>
+          <Text style={styles.payNowTxt}>Pay Now</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -546,4 +470,125 @@ export default BookingWorkspaceScreen;
 
 const styles = StyleSheet.create({
   container: {flex: 1},
+  container1: {
+    flexDirection: 'row',
+    marginHorizontal: moderateScale(15),
+    marginTop: moderateScale(10),
+    backgroundColor: Color.white,
+  },
+  topView: {
+    marginTop: moderateScale(10),
+    backgroundColor: Color.white,
+    flexDirection: 'row',
+    borderBottomWidth: 2,
+    borderColor: Color.lightGrey,
+    paddingVertical: moderateScale(15),
+  },
+  topViewImg: {
+    width: 150,
+    height: 90,
+    borderRadius: 10,
+    backgroundColor: 'red',
+    marginLeft: moderateScale(15),
+  },
+  invitedView: {
+    flexDirection: 'row',
+    paddingVertical: moderateScale(10),
+    marginHorizontal: moderateScale(5),
+    borderBottomWidth: 2,
+    borderColor: Color.lightGrey,
+    backgroundColor: Color.white,
+  },
+  inviteOthersView: {
+    marginLeft: moderateScale(15),
+    color: Color.black,
+    marginBottom: moderateScale(5),
+    marginTop: moderateScale(10),
+  },
+  plusIconBtn: {
+    backgroundColor: Color.primary,
+    marginRight: moderateScale(35),
+    marginTop: moderateScale(6),
+    height: 42,
+    paddingHorizontal: moderateScale(10),
+    paddingVertical: moderateScale(5),
+    borderRadius: 5,
+  },
+  summaryView: {
+    borderBottomWidth: 2,
+    borderColor: Color.lightGrey,
+    paddingVertical: moderateScale(10),
+    backgroundColor: Color.white,
+  },
+  summaryTxt: {
+    fontWeight: '600',
+    color: Color.darkBlue,
+    marginLeft: moderateScale(15),
+    marginTop: moderateScale(10),
+  },
+  priceView: {
+    flexDirection: 'row',
+    marginTop: moderateScale(10),
+    marginHorizontal: moderateScale(15),
+    justifyContent: 'space-between',
+  },
+  taxView: {
+    flexDirection: 'row',
+    marginTop: moderateScale(5),
+    marginHorizontal: moderateScale(15),
+    justifyContent: 'space-between',
+  },
+  totalView: {
+    flexDirection: 'row',
+    marginTop: moderateScale(15),
+    marginHorizontal: moderateScale(15),
+    justifyContent: 'space-between',
+  },
+  paymentViaTxt: {
+    fontWeight: '600',
+    color: Color.darkBlue,
+    marginLeft: moderateScale(15),
+    marginTop: moderateScale(10),
+  },
+  radioBtnView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: moderateScale(10),
+    marginRight: moderateScale(50),
+  },
+  cardNumView: {
+    flexDirection: 'row',
+    marginHorizontal: moderateScale(1),
+    borderBottomWidth: 2,
+    borderBottomColor: Color.mapColor,
+  },
+  cardView: {
+    flexDirection: 'row',
+    marginTop: moderateScale(10),
+    marginLeft: moderateScale(170),
+    marginHorizontal: moderateScale(1),
+  },
+  CorrectSignBtn: {
+    flexDirection: 'row',
+    backgroundColor: Color.primary,
+    padding: moderateScale(2),
+    borderRadius: 5,
+  },
+  correctSignOutline: {
+    flexDirection: 'row',
+    padding: moderateScale(2),
+    borderRadius: 5,
+    backgroundColor: Color.lightGrey,
+  },
+  payNowTxt: {
+    backgroundColor: Color.white,
+    textAlign: 'center',
+    width: '90%',
+    marginLeft: moderateScale(20),
+    paddingVertical: moderateScale(12),
+    borderRadius: 10,
+    color: Color.primary,
+    fontWeight: '700',
+    marginBottom: 5,
+  },
 });
