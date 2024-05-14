@@ -12,6 +12,7 @@ import FeatureScreen from './src/screens/FeatureScreen';
 import AboutScreen from './src/screens/AboutScreen';
 import WorkspaceDetailsScreen from './src/screens/WorkspaceDetailsScreen';
 import WorkspaceStackNavigation from './src/Navigator/PractiseNavigator';
+import FeedBackScreen from './src/screens/FeedBackScreen';
 
 
 
@@ -20,7 +21,8 @@ const App = () => {
   return (
       // <LoginScreen/>
       // <SignUpScreen />
-      <WorkspaceStackNavigation />
+      <FeedBackScreen />
+      // <WorkspaceStackNavigation />
       // <WorkspaceDetailsScreen />
       // <AboutScreen />
       // <FeatureScreen />
