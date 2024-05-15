@@ -9,37 +9,48 @@ import NiceEmojiIcon from '../components/Svgs/NiceEmojiIcon';
 import BestEmojiIcon from '../components/Svgs/BestEmojiIcon';
 import AwesomeEmojiIcon from '../components/Svgs/AwesomeEmojiIcon';
 import CommunityTagFilled from '../components/CommunityTagFilled';
-import { useState } from 'react';
+import {useState} from 'react';
 import CommunityTagOutline from '../components/CommunityTagOutline';
+import CustomInput from '../components/Input';
+import {useForm, Controller} from 'react-hook-form';
 
 interface FeedBackScreenProps {}
 
-
 const FeedBackScreen = (props: FeedBackScreenProps) => {
-    const [selectedItem, setSelectedItem] = useState<number[]>([]);
-    const [itemNames, setItemNames ] = useState([
-        "Response Time",
-        "Costs",
-        "Help Received",
-        "Quality",
-        "Value",
-        "Experience"
-    ]); 
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+  } = useForm({
+    defaultValues: {
+      notes: '',
+    },
+  });
 
-    const handleSelect = (index : number) => {
-       const updatedArray = [...selectedItem];
-       updatedArray.push(index);
-       console.log("updatedArray",updatedArray);
-       setSelectedItem(updatedArray)
-       console.log("selectedItem",selectedItem)
-    };
+  const [selectedItem, setSelectedItem] = useState<number[]>([]);
+  const [itemNames, setItemNames] = useState([
+    'Response Time',
+    'Costs',
+    'Help Received',
+    'Quality',
+    'Value',
+    'Experience',
+  ]);
 
-    const handleUnSelect = (index : number) => {
-       const updatedArray = [...selectedItem];
-       updatedArray.splice(index, 1);
-       setSelectedItem(updatedArray);
-       console.log("selectedItem after splice", selectedItem)
-    }
+  const handleSelect = (index: number) => {
+    const updatedArray = [...selectedItem];
+    updatedArray.push(index);
+    console.log('updatedArray', updatedArray);
+    setSelectedItem(updatedArray);
+    console.log('selectedItem', selectedItem);
+  };
+
+  const handleUnSelect = (index: number) => {
+    const updatedArray = [...selectedItem];
+    updatedArray.splice(index, 1);
+    setSelectedItem(updatedArray);
+    console.log('selectedItem after splice', selectedItem);
+  };
 
   return (
     <View style={styles.container}>
@@ -56,27 +67,19 @@ const FeedBackScreen = (props: FeedBackScreenProps) => {
           Feedbacks
         </Text>
       </View>
-
-      <View
-        style={{
-          flexDirection: 'row',
-          marginHorizontal: moderateScale(1),
-          justifyContent: 'space-evenly',
-          marginVertical:moderateScale(20)
-        }}>
+      <View style={styles.emojiView}>
         <TouchableOpacity>
           <BadImojiIcon />
           <Text style={{textAlign: 'center', marginTop: moderateScale(5)}}>
             Bad
           </Text>
         </TouchableOpacity>
-        
-         <TouchableOpacity>
+        <TouchableOpacity>
           <AverageEmojiIcon />
           <Text style={{textAlign: 'center', marginTop: moderateScale(5)}}>
             Average
           </Text>
-         </TouchableOpacity>
+        </TouchableOpacity>
         <TouchableOpacity>
           <NiceEmojiIcon />
           <Text style={{textAlign: 'center', marginTop: moderateScale(5)}}>
@@ -96,29 +99,57 @@ const FeedBackScreen = (props: FeedBackScreenProps) => {
           </Text>
         </TouchableOpacity>
       </View>
-
-     <View>
-        <Text style={{fontSize:moderateScale(18), fontWeight:"500", textAlign:"center"}}>Why would you like this?</Text>
-     <View style={styles.tagView}>
-        {itemNames.map((data, index) => {
+      <View>
+        <Text style={styles.midTxt}>Why would you like this?</Text>
+        <View style={styles.tagView}>
+          {itemNames.map((data, index) => {
             return selectedItem.includes(index) ? (
-                <CommunityTagFilled
+              <CommunityTagFilled
+                text={data}
+                key={data}
+                onPress={() => handleUnSelect(index)}
+              />
+            ) : (
+              <CommunityTagOutline
                 text={data}
                 key={data}
                 onPress={() => handleSelect(index)}
-                />     
-            ) : (
-               <CommunityTagOutline
-               text={data}
-               key={data}
-               onPress={() => handleUnSelect(index)}
-               />
-            )
-        })}
-
-     </View>
-     </View>
-
+              />
+            );
+          })}
+        </View>
+      </View>
+      <View style={{marginVertical: moderateScale(10)}}>
+        <Controller
+          name="notes"
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({field: {value, onChange}, fieldState: {error}}) => (
+            <>
+              <CustomInput
+                value={value}
+                onChange={onChange}
+                label="Additional Notes"
+                placeholder="Write here"
+                labelStyle={{
+                  color: Color.black,
+                  fontWeight: '300',
+                  marginLeft: moderateScale(10),
+                  marginVertical: moderateScale(10),
+                }}
+                inputContainerStyle={{borderBottomWidth: 0}}
+                style={{backgroundColor: Color.lightGrey, height: 150}}
+              />
+              {error?.message ? <Text>{error.message}</Text> : null}
+            </>
+          )}
+        />
+      </View>
+      <TouchableOpacity style={styles.submitBtn}>
+        <Text style={styles.submitBtnTxt}>Submit</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -131,7 +162,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginHorizontal: moderateScale(15),
     marginTop: moderateScale(10),
-    backgroundColor: Color.white,
+  },
+  emojiView: {
+    flexDirection: 'row',
+    marginHorizontal: moderateScale(10),
+    justifyContent: 'space-evenly',
+    marginVertical: moderateScale(25),
+  },
+  midTxt: {
+    fontSize: moderateScale(18),
+    fontWeight: '500',
+    textAlign: 'center',
+    marginTop: moderateScale(10),
   },
   tagView: {
     marginVertical: moderateScale(20),
@@ -139,5 +181,19 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'center',
     marginHorizontal: moderateScale(25),
+  },
+  submitBtn: {
+    borderWidth: 1,
+    backgroundColor: Color.darkBlue,
+    height: moderateScale(45),
+    borderRadius: 10,
+    marginHorizontal: moderateScale(20),
+    marginTop: moderateScale(20),
+  },
+  submitBtnTxt: {
+    textAlign: 'center',
+    fontSize: moderateScale(18),
+    marginTop: moderateScale(7),
+    color: Color.white,
   },
 });
