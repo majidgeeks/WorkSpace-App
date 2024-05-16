@@ -20,6 +20,7 @@ import CalendarIcon from '../components/Svgs/CalendarIcon';
 import DownArrowIcon from '../components/Svgs/DownArrowIcon';
 import {Images} from '../assets/images';
 import FavouritesIcon from '../components/Svgs/FavouritesIcon';
+import FavouriteFilledIcon from '../components/Svgs/FavouriteFilledIcon';
 
 interface EploreScreenProps {}
 
@@ -79,6 +80,7 @@ const countries = [
 
 const EploreScreen = (props: EploreScreenProps) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [selectFavourite, setSelectFavourite] = useState<number[]>([])
 
   const openDatepicker = () => {
     setShowDatePicker(true);
@@ -94,6 +96,21 @@ const EploreScreen = (props: EploreScreenProps) => {
       date: new Date(),
     },
   });
+
+  const handleSelect = (index : number) => {
+     const updatedArray = [...selectFavourite];
+     updatedArray.push(index);
+     setSelectFavourite(updatedArray);
+     console.log("selectFavourite added",selectFavourite);
+  }
+
+  const handleUnSelect = (index : number) => {
+    const updatedArray = [...selectFavourite];
+    updatedArray.splice(index, 1);
+    setSelectFavourite(updatedArray);
+    console.log("selectFavourite spliced",selectFavourite);
+
+  }
 
   return (
     <View style={styles.container}>
@@ -185,12 +202,21 @@ const EploreScreen = (props: EploreScreenProps) => {
         <FlatList
           style={{backgroundColor: 'white'}}
           data={spaces}
-          renderItem={({item}) => (
+          renderItem={({item, index}) => (
             <View style={styles.flatListView}>
               <Image style={{width: '100%'}} source={item.image} />
               <View style={styles.flatlistView2}>
                 <Text style={styles.titleTxt}>{item.title}</Text>
+                { selectFavourite.includes(index) ? (
+                  <TouchableOpacity onPress={()=>handleUnSelect(index)}>
+                  <FavouriteFilledIcon size={30} color={Color.primary} />
+                  </TouchableOpacity>
+                ):(
+                  <TouchableOpacity onPress={()=>handleSelect(index)}>
                 <FavouritesIcon size={30} color={Color.darkGrey} />
+                </TouchableOpacity>
+                  )
+                }
               </View>
               <View style={styles.cardBottomParent}>
                 <View

@@ -14,7 +14,7 @@ import auth from '@react-native-firebase/auth';
 import {Images} from '../assets/images';
 import {useForm, Controller} from 'react-hook-form';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import { moderateScale } from 'react-native-size-matters';
+import {moderateScale} from 'react-native-size-matters';
 import CustomInput from '../components/Input';
 
 GoogleSignin.configure({
@@ -99,11 +99,15 @@ const LoginScreen = () => {
               name="email"
               control={control}
               rules={{
-                required:true
+                required: true,
               }}
               render={({field: {value, onChange}}) => (
-                <CustomInput placeholder="Email" value={value} onChange={onChange}
-                  inputContainerStyle={{borderBottomWidth:0}} />
+                <CustomInput
+                  placeholder="Email"
+                  value={value}
+                  onChange={onChange}
+                  inputContainerStyle={{borderBottomWidth: 0}}
+                />
               )}
             />
             {errors.email && <Text>email is required</Text>}
@@ -111,14 +115,14 @@ const LoginScreen = () => {
               name="password"
               control={control}
               rules={{
-                required:true
+                required: true,
               }}
               render={({field: {value, onChange}}) => (
                 <CustomInput
                   placeholder="Password"
                   value={value}
                   onChange={onChange}
-                  inputContainerStyle={{borderBottomWidth:0}}
+                  inputContainerStyle={{borderBottomWidth: 0}}
                 />
               )}
             />
@@ -141,14 +145,22 @@ const LoginScreen = () => {
                   style={{width: 25, marginHorizontal: moderateScale(10)}}
                   source={Images.googleIcon}
                 />
-                <Text style={{textAlign: 'center', fontSize: moderateScale(17), color: 'red'}}>
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    fontSize: moderateScale(17),
+                    color: 'red',
+                  }}>
                   Google
                 </Text>
               </View>
             </TouchableOpacity>
           </View>
-          <View style={{marginVertical: moderateScale(110), alignItems: 'center'}}>
-            <Text style={{color: 'white', fontWeight:"500"}}>Don't have an account</Text>
+          <View
+            style={{marginVertical: moderateScale(110), alignItems: 'center'}}>
+            <Text style={{color: 'white', fontWeight: '500'}}>
+              Don't have an account
+            </Text>
             <TouchableOpacity onPress={onHandleSignUp} style={styles.signUpBtn}>
               <Text style={styles.signUpBtnTxt}>Sign Up</Text>
             </TouchableOpacity>
@@ -165,7 +177,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  header: {justifyContent: 'center', alignItems: 'center', marginTop: moderateScale(50)},
+  header: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: moderateScale(50),
+  },
   text1: {color: 'white', textAlign: 'center', fontWeight: 'bold'},
   loginBtn: {
     borderWidth: 1,
@@ -175,7 +191,12 @@ const styles = StyleSheet.create({
     marginHorizontal: moderateScale(10),
     marginTop: moderateScale(10),
   },
-  loginBtnTxt: {textAlign: 'center', fontSize: moderateScale(20), marginTop: moderateScale(6), color: 'red'},
+  loginBtnTxt: {
+    textAlign: 'center',
+    fontSize: moderateScale(20),
+    marginTop: moderateScale(6),
+    color: 'red',
+  },
   googleBtn: {
     borderWidth: 1,
     backgroundColor: 'white',
@@ -188,7 +209,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'white',
     height: moderateScale(45),
-    width: "95%",
+    width: '95%',
     borderRadius: 10,
     marginTop: moderateScale(10),
   },

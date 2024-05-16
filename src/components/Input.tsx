@@ -11,6 +11,7 @@ interface CustomInputProps {
   labelStyle?: TextStyle;
   inputContainerStyle?: TextStyle;
   disabled? : boolean
+  inputStyle? : TextStyle
 }
 
 const CustomInput: React.FC<CustomInputProps> = ({
@@ -21,7 +22,8 @@ const CustomInput: React.FC<CustomInputProps> = ({
   label,
   labelStyle,
   inputContainerStyle,
-  disabled
+  disabled,
+  inputStyle
 }) => {
   return (
     <Input
@@ -33,6 +35,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
       labelStyle={labelStyle}
       inputContainerStyle={inputContainerStyle}
       disabled={disabled}
+      inputStyle={inputStyle}
     />
   );
 };

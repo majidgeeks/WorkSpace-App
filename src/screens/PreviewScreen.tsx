@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Text, View, StyleSheet, Image} from 'react-native';
+import {Text, View, StyleSheet, Image, ScrollView} from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
 
 interface PreviewScreenProps {}
@@ -7,6 +7,7 @@ interface PreviewScreenProps {}
 const PreviewScreen = (props: PreviewScreenProps) => {
   return (
     <View style={styles.container}>
+      <ScrollView>
       <View style={{marginTop:moderateScale(10)}}>
         <Image
           source={{
@@ -84,6 +85,7 @@ const PreviewScreen = (props: PreviewScreenProps) => {
         }}
         />
       </View>
+      </ScrollView>
     </View>
   );
 };

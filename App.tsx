@@ -21,16 +21,15 @@ const App = () => {
   return (
       // <LoginScreen/>
       // <SignUpScreen />
-      <FeedBackScreen />
-      // <WorkspaceStackNavigation />
-      // <WorkspaceDetailsScreen />
+      // <FeedBackScreen />
       // <AboutScreen />
       // <FeatureScreen />
       // <PreviewScreen />
-    // <NavigationContainer>
-        /* <AuthNavigator />  */
-        // <BottomTabNavigation />  
-      // </NavigationContainer>  
+      <NavigationContainer>
+        {/* <WorkspaceStackNavigation /> */}
+         {/* <AuthNavigator />    */}
+          <BottomTabNavigation />    
+      </NavigationContainer>   
       // <SelectFlowScreen />
       // <SelectComScreen />
       // <ProfileScreen />
