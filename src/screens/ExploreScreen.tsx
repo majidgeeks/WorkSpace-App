@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {
   Text,
   View,
@@ -7,7 +7,9 @@ import {
   TouchableOpacity,
   Image,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
+import firestore from '@react-native-firebase/firestore';
 import {useForm, Controller} from 'react-hook-form';
 import {moderateScale} from 'react-native-size-matters';
 import {Dropdown} from 'react-native-element-dropdown';
@@ -21,8 +23,12 @@ import DownArrowIcon from '../components/Svgs/DownArrowIcon';
 import {Images} from '../assets/images';
 import FavouritesIcon from '../components/Svgs/FavouritesIcon';
 import FavouriteFilledIcon from '../components/Svgs/FavouriteFilledIcon';
+import {COMMUNITIES} from '../constants/Onboarding';
 
 interface EploreScreenProps {}
+
+let usersImage = Images.moonImage;
+let spacesImage = Images.image1;
 
 const spaces = [
   {
@@ -80,7 +86,9 @@ const countries = [
 
 const EploreScreen = (props: EploreScreenProps) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [selectFavourite, setSelectFavourite] = useState<number[]>([])
+  const [selectFavourite, setSelectFavourite] = useState<number[]>([]);
+  const [loading, setLoading] = useState(true); // Set loading to true on component mount
+  const [workspaces, setWorkspaces] = useState([]); // Initial empty array of workspace
 
   const openDatepicker = () => {
     setShowDatePicker(true);
@@ -97,19 +105,41 @@ const EploreScreen = (props: EploreScreenProps) => {
     },
   });
 
-  const handleSelect = (index : number) => {
-     const updatedArray = [...selectFavourite];
-     updatedArray.push(index);
-     setSelectFavourite(updatedArray);
-     console.log("selectFavourite added",selectFavourite);
-  }
+  const handleSelect = (index: number) => {
+    const updatedArray = [...selectFavourite];
+    updatedArray.push(index);
+    setSelectFavourite(updatedArray);
+    console.log('selectFavourite added', selectFavourite);
+  };
 
-  const handleUnSelect = (index : number) => {
+  const handleUnSelect = (index: number) => {
     const updatedArray = [...selectFavourite];
     updatedArray.splice(index, 1);
     setSelectFavourite(updatedArray);
-    console.log("selectFavourite spliced",selectFavourite);
+    console.log('selectFavourite spliced', selectFavourite);
+  };
 
+  // fetch workspaces data from firebase
+  const fetchWorkspaces = async () => {
+    setLoading(true);
+    const updatedArray = [];
+    const documents = await firestore().collection('Workspaces').get();
+    documents.forEach(doc => {
+      const id = doc.id;
+      updatedArray.push({id, ...doc.data()});
+    });
+    setWorkspaces(updatedArray);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchWorkspaces();
+  }, []);
+
+  // console.log(workspaces);
+
+  if (loading) {
+    return <ActivityIndicator />;
   }
 
   return (
@@ -201,52 +231,64 @@ const EploreScreen = (props: EploreScreenProps) => {
         {/* card start here */}
         <FlatList
           style={{backgroundColor: 'white'}}
-          data={spaces}
-          renderItem={({item, index}) => (
-            <View style={styles.flatListView}>
-              <Image style={{width: '100%'}} source={item.image} />
-              <View style={styles.flatlistView2}>
-                <Text style={styles.titleTxt}>{item.title}</Text>
-                { selectFavourite.includes(index) ? (
-                  <TouchableOpacity onPress={()=>handleUnSelect(index)}>
-                  <FavouriteFilledIcon size={30} color={Color.primary} />
-                  </TouchableOpacity>
-                ):(
-                  <TouchableOpacity onPress={()=>handleSelect(index)}>
-                <FavouritesIcon size={30} color={Color.darkGrey} />
-                </TouchableOpacity>
-                  )
-                }
-              </View>
-              <View style={styles.cardBottomParent}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    width: '50%',
-                    borderRightWidth: 1,
-                  }}>
-                  <Text>{item.gender}</Text>
-                  <Text style={{marginLeft: moderateScale(5)}}>
-                    {item.community}
-                  </Text>
+          data={workspaces}
+          renderItem={({item, index}) => {
+            // console.log('item.id', item.id);
+            return (
+              <View style={styles.flatListView}>
+                <Image
+                  style={{width: '100%', height: '80%', borderRadius: 10}}
+                  source={{uri: item.cover}}
+                />
+                <View style={styles.flatlistView2}>
+                  <Text style={styles.titleTxt}>{item.name}</Text>
+                  {selectFavourite.includes(index) ? (
+                    <TouchableOpacity onPress={() => handleUnSelect(index)}>
+                      <FavouriteFilledIcon size={30} color={Color.primary} />
+                    </TouchableOpacity>
+                  ) : (
+                    <TouchableOpacity onPress={() => handleSelect(index)}>
+                      <FavouritesIcon size={30} color={Color.darkGrey} />
+                    </TouchableOpacity>
+                  )}
                 </View>
-                <View style={styles.cardView3}>
-                  <View style={{flexDirection: 'row'}}>
-                    <Image
-                      style={{width: 20, height: 20, borderRadius: 50}}
-                      source={item.usersImage}
-                    />
-                    <Image
-                      style={{width: 20, height: 20, borderRadius: 50}}
-                      source={item.usersImage}
-                    />
+                <View style={styles.cardBottomParent}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      // width: '50%',
+                      borderRightWidth: 1,
+                    }}>
+                    <Text>Female only</Text>
+                    <Text style={{marginHorizontal: moderateScale(5)}} >
+                      {item.community.slice(0, 1).map(val  => {
+                        console.log(COMMUNITIES[val]);
+                        return COMMUNITIES[val];
+                      })}
+                      {item.community.length > 1
+                        ? `+${item.community.length - 1}`
+                        : ''}
+                      
+                    </Text>
                   </View>
-                  <Text>{item.cb}</Text>
+                  <View style={styles.cardView3}>
+                    <View style={{flexDirection: 'row'}}>
+                      <Image
+                        style={{width: 20, height: 20, borderRadius: 50}}
+                        source={usersImage}
+                      />
+                      <Image
+                        style={{width: 20, height: 20, borderRadius: 50}}
+                        source={usersImage}
+                      />
+                    </View>
+                    <Text>CB 10+</Text>
+                  </View>
                 </View>
               </View>
-            </View>
-          )}
-          keyExtractor={index => `${index.id}`}
+            );
+          }}
+          keyExtractor={(item) => `${item.id}`}
         />
         {/* card ends here */}
       </View>
@@ -301,6 +343,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: moderateScale(5),
   },
   flatListView: {
+    height: 280,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     borderBottomColor: 'blue',
@@ -323,24 +366,24 @@ const styles = StyleSheet.create({
     width: '94%',
     justifyContent: 'space-between',
     marginHorizontal: moderateScale(5),
-    marginTop: moderateScale(-10),
+    marginTop: moderateScale(5),
   },
   titleTxt: {
     color: Color.primary,
     fontSize: moderateScale(16),
     fontWeight: 'bold',
-    marginLeft: moderateScale(10),
+    marginLeft: moderateScale(0),
   },
   cardBottomParent: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '95%',
-    marginTop: moderateScale(-5),
+    justifyContent: 'space-between',
+    // width: '95%',
+    // marginTop: moderateScale(-5),
   },
   cardView3: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '30%',
-    marginRight: moderateScale(10),
+    // width: '30%',
+    marginRight: moderateScale(30),
   },
 });

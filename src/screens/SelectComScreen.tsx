@@ -9,20 +9,14 @@ import CommunityTagOutline from '../components/CommunityTagOutline';
 import RightMarkIcon from '../components/Svgs/RightMarkIcon';
 import {TouchableOpacity} from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
+import { COMMUNITIES } from '../constants/Onboarding';
 
 interface SelectComScreenProps {}
 
 const SelectComScreen = () => {
-  const [items, setItems] = useState([
-    'LGBTQ',
-    'BIPOC',
-    'Ceatives',
-    'Parents',
-    'Females',
-    'Mental Health',
-    'Pets',
-    'Limited Mobility',
-  ]);
+  const [items, setItems] = useState(
+   COMMUNITIES
+);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [error, setError] = useState('');
   const route = useRoute<RouteProp<any>>();
