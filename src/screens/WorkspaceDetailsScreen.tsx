@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {
   Text,
   View,
   StyleSheet,
   Image,
   FlatList,
-  ScrollView,
   TouchableOpacity,
 } from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
@@ -14,15 +13,18 @@ import {Color} from '../constants/Color';
 import MapImage1 from '../components/Svgs/MapImage1';
 import {Images} from '../assets/images';
 import CorrectSignIcon from '../components/Svgs/CorrectSignIcon';
-import {WorkspaceDetailsTabs} from '../Navigator/PractiseNavigator';
+import {WorkspaceDetailsTabs} from '../Navigator/WorkspaceStackNavigation';
 import LocationIcon from '../components/Svgs/LocationIcon';
 import LeftIcon from '../components/Svgs/LeftIcon';
 import ChatIcon from '../components/Svgs/ChatIcon';
 import FavouriteFilledIcon from '../components/Svgs/FavouriteFilledIcon';
 import FavouritesIcon from '../components/Svgs/FavouritesIcon';
 import CalendarIcon from '../components/Svgs/CalendarIcon';
-import {useNavigation} from '@react-navigation/native';
-import FeatureScreen from './FeatureScreen';
+import {useNavigation, useRoute, RouteProp,} from '@react-navigation/native';
+import firestore from '@react-native-firebase/firestore';
+import { WorkspaceContext } from '../WorkspaceContext';
+ 
+
 
 interface WorkspaceDetailsScreenProps {}
 
@@ -73,8 +75,28 @@ const WorkspaceDetailsScreen = (props: WorkspaceDetailsScreenProps) => {
   const navigation = useNavigation();
   const [favourite, setFavourite] = useState(false);
   const [selectedImage, setSelectedImage] = useState<number[]>([]);
+  const route = useRoute<RouteProp<any>>([]);
+  const id = route.params?.itemId;
+  const [workspace, setWorkspace] = useState();
+  const workContext = useContext(WorkspaceContext); 
 
-  const handleBookingWorkSpace = () => {};
+  console.log("id",id)
+   
+  const fetchWorkspaceData = async() => {
+    const documents = await firestore().collection('Workspaces').doc(id).get();
+    // console.log("documents.data()",documents.data());
+    const workSpaceData = documents.data();
+    setWorkspace(workSpaceData);  
+    workContext.setWorkspaceContextApi(workSpaceData);
+  }
+
+  useEffect(()=>{
+     fetchWorkspaceData();
+  },[]);
+
+
+
+  // const handleBookingWorkSpace = () => {};
 
   const toggleFavourite = () => {
     setFavourite(previous => !previous);
@@ -97,11 +119,13 @@ const WorkspaceDetailsScreen = (props: WorkspaceDetailsScreenProps) => {
     // console.log('updatedArray(afterSet)', updatedArray);
   };
 
+
+  console.log("workspace",workspace)
   return (
     <View style={styles.container}>
       <View style={styles.headerView}>
         <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=> navigation.goBack()}>
             <LeftIcon />
           </TouchableOpacity>
           <View style={{flexDirection: 'row', marginLeft: moderateScale(20)}}>
@@ -280,3 +304,4 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 });
+

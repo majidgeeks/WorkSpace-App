@@ -6,12 +6,12 @@ import SelectComScreen from './src/screens/SelectComScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthNavigator from './src/Navigator/AuthNavigater';
-import BottomTabNavigation from './src/Navigator/BottomNavigator';
+import BottomTabNavigation from './src/Navigator/BottomTabNavigation';
 import PreviewScreen from './src/screens/PreviewScreen';
 import FeatureScreen from './src/screens/FeatureScreen';
 import AboutScreen from './src/screens/AboutScreen';
 import WorkspaceDetailsScreen from './src/screens/WorkspaceDetailsScreen';
-import WorkspaceStackNavigation from './src/Navigator/PractiseNavigator';
+import WorkspaceStackNavigation from './src/Navigator/WorkspaceStackNavigation';
 import FeedBackScreen from './src/screens/FeedBackScreen';
 
 

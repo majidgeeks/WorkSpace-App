@@ -24,6 +24,7 @@ import {Images} from '../assets/images';
 import FavouritesIcon from '../components/Svgs/FavouritesIcon';
 import FavouriteFilledIcon from '../components/Svgs/FavouriteFilledIcon';
 import {COMMUNITIES} from '../constants/Onboarding';
+import {useNavigation} from '@react-navigation/native';
 
 interface EploreScreenProps {}
 
@@ -84,11 +85,12 @@ const countries = [
   },
 ];
 
-const EploreScreen = (props: EploreScreenProps) => {
+const ExploreScreen = (props: EploreScreenProps) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectFavourite, setSelectFavourite] = useState<number[]>([]);
   const [loading, setLoading] = useState(true); // Set loading to true on component mount
   const [workspaces, setWorkspaces] = useState([]); // Initial empty array of workspace
+  const navigation = useNavigation();
 
   const openDatepicker = () => {
     setShowDatePicker(true);
@@ -125,7 +127,7 @@ const EploreScreen = (props: EploreScreenProps) => {
     const updatedArray = [];
     const documents = await firestore().collection('Workspaces').get();
     documents.forEach(doc => {
-      const id = doc.id;
+      const id = doc?.id;
       updatedArray.push({id, ...doc.data()});
     });
     setWorkspaces(updatedArray);
@@ -235,7 +237,11 @@ const EploreScreen = (props: EploreScreenProps) => {
           renderItem={({item, index}) => {
             // console.log('item.id', item.id);
             return (
-              <View style={styles.flatListView}>
+              <TouchableOpacity
+                style={styles.flatListView}
+                onPress={() =>
+                  navigation.navigate('WorkspaceDeatails', {itemId: item.id})
+                }>
                 <Image
                   style={{width: '100%', height: '80%', borderRadius: 10}}
                   source={{uri: item.cover}}
@@ -260,15 +266,14 @@ const EploreScreen = (props: EploreScreenProps) => {
                       borderRightWidth: 1,
                     }}>
                     <Text>Female only</Text>
-                    <Text style={{marginHorizontal: moderateScale(5)}} >
-                      {item.community.slice(0, 1).map(val  => {
-                        console.log(COMMUNITIES[val]);
+                    <Text style={{marginHorizontal: moderateScale(5)}}>
+                      {item.community.slice(0, 1).map(val => {
+                        // console.log(COMMUNITIES[val]);
                         return COMMUNITIES[val];
                       })}
                       {item.community.length > 1
                         ? `+${item.community.length - 1}`
                         : ''}
-                      
                     </Text>
                   </View>
                   <View style={styles.cardView3}>
@@ -285,10 +290,10 @@ const EploreScreen = (props: EploreScreenProps) => {
                     <Text>CB 10+</Text>
                   </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             );
           }}
-          keyExtractor={(item) => `${item.id}`}
+          keyExtractor={item => `${item.id}`}
         />
         {/* card ends here */}
       </View>
@@ -296,7 +301,7 @@ const EploreScreen = (props: EploreScreenProps) => {
   );
 };
 
-export default EploreScreen;
+export default ExploreScreen;
 
 const styles = StyleSheet.create({
   container: {flex: 1},

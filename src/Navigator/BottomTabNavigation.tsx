@@ -11,6 +11,7 @@ import FavouritesIcon from '../components/Svgs/FavouritesIcon';
 import BookingsIcon from '../components/Svgs/BookingsIcon';
 import ChatIcon from '../components/Svgs/ChatIcon';
 import ProfilesIcon from '../components/Svgs/ProfilesIcon';
+import WorkspaceStackNavigation from './WorkspaceStackNavigation';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,7 +25,7 @@ function BottomTabNavigation() {
         tabBarInactiveTintColor: Color.whiteSecondary,
      }}
      >
-      <Tab.Screen name="Explore" component={ExploreScreen} 
+      <Tab.Screen name="Explore" component={WorkspaceStackNavigation} 
        options={{tabBarIcon:({focused})=>(<SearchIcon  color={focused ? Color.primary : Color.whiteSecondary} size={21}/>),
                 headerShown:false
     }}
