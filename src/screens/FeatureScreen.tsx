@@ -13,11 +13,8 @@ interface FeatureScreenProps {}
 
 const FeatureScreen = (props: FeatureScreenProps) => {
   const workContext = useContext(WorkspaceContext);
-  console.log(
-    'WorksContext.workspaceContextApi',
-    workContext.workspaceContextApi,
-  );
-  return (
+
+  return workContext.workspaceContextApi?.amenities ? (
     <View style={styles.container}>
       <View
         style={{
@@ -28,7 +25,7 @@ const FeatureScreen = (props: FeatureScreenProps) => {
           marginTop: moderateScale(10),
         }}>
         {workContext.workspaceContextApi.amenities.map(data => (
-          <View style={{alignItems: 'center'}} key={data.id}>
+          <View style={{alignItems: 'center'}} key={data.name}>
             <View
               style={{
                 backgroundColor: Color.pink,
@@ -54,7 +51,7 @@ const FeatureScreen = (props: FeatureScreenProps) => {
         ))}
       </View>
     </View>
-  );
+  ) : null;
 };
 
 export default FeatureScreen;

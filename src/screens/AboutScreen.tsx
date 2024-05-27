@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import {
   Text,
   View,
@@ -8,10 +8,15 @@ import {
 } from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
 import {Color} from '../constants/Color';
+import { WorkspaceContext } from '../WorkspaceContext';
+
 
 interface AboutScreenProps {}
 
 const AboutScreen = (props: AboutScreenProps) => {
+  const workContext = useContext(WorkspaceContext);
+  console.log("workContext(about)",workContext.workspaceContextApi);
+
   return (
     <View style={styles.container}>
       <ScrollView>
