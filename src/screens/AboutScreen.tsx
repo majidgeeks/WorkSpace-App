@@ -9,6 +9,8 @@ import {
 import {moderateScale} from 'react-native-size-matters';
 import {Color} from '../constants/Color';
 import { WorkspaceContext } from '../WorkspaceContext';
+import { COMMUNITIES } from '../constants/Onboarding';
+import { INTEREST } from '../constants/OnboardingInterest';
 
 
 interface AboutScreenProps {}
@@ -17,53 +19,65 @@ const AboutScreen = (props: AboutScreenProps) => {
   const workContext = useContext(WorkspaceContext);
   console.log("workContext(about)",workContext.workspaceContextApi);
 
+  const workContextData = workContext.workspaceContextApi;
+
   return (
     <View style={styles.container}>
       <ScrollView>
         <Text style={styles.txt1}>Why We Like it?</Text>
-        <View
-          style={{
-            marginHorizontal: moderateScale(10),
-            marginVertical: moderateScale(10),
-          }}>
-          <ScrollView horizontal>
+        <ScrollView horizontal>
+        {workContextData?.interests.map( index => {
+         return(
+           <View
+           style={{
+             marginHorizontal: moderateScale(5),
+             marginVertical: moderateScale(10),
+            }} key={index}>
             <TouchableOpacity style={styles.tag1Btn}>
               <Text
                 style={{
                   fontSize: moderateScale(15),
-                  marginTop: moderateScale(10),
+                  paddingTop:4,
+                  paddingBottom: 4,
                 }}>
-                Abundance
+                {INTEREST[index]}
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.tag2Btn}>
+          </View>
+                )
+              })}
+              </ScrollView>
+            {/* <TouchableOpacity style={styles.tag2Btn}>
               <Text style={{fontSize: moderateScale(15)}}>Transcedence</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.tag3Btn}>
               <Text style={{fontSize: moderateScale(15)}}>Harmony</Text>
-            </TouchableOpacity>
-          </ScrollView>
-        </View>
+            </TouchableOpacity> */}
         <Text style={styles.comunityTxt}>Communities</Text>
-        <View style={styles.communityView}>
+        <View style={{flexDirection:"row"}}>
+        {workContextData?.community.map( index => {
+        return (
+          <View style={styles.communityView} key={index}>
           <TouchableOpacity style={styles.community1btn}>
-            <Text style={{color: Color.primary}}>LGBTQ</Text>
+            <Text style={{color: Color.primary}}> { COMMUNITIES[index]}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.community2btn}>
-            <Text style={{color: Color.primary, marginTop: moderateScale(5)}}>
-              Females
-            </Text>
-          </TouchableOpacity>
+        </View> )
+        }
+        )}
         </View>
+          
         <Text style={styles.detailTxt}>The Detailed Story</Text>
-        <Text
+        { workContextData ? (
+          <Text
           style={{
             marginHorizontal: moderateScale(10),
             marginTop: moderateScale(10),
           }}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-          tempus justo sed risus pulvinar tincidunt.
+           {workContextData.description} 
         </Text>
+        ):
+        null
+        }
         <Text style={styles.needTxt}>Need to know</Text>
         <Text
           style={{
@@ -92,6 +106,7 @@ const styles = StyleSheet.create({
   tag1Btn: {
     backgroundColor: Color.lightGreen,
     paddingHorizontal: moderateScale(15),
+    paddingVertical: moderateScale(3),
     borderRadius: 10,
     marginHorizontal: moderateScale(15),
   },
@@ -116,7 +131,6 @@ const styles = StyleSheet.create({
     marginLeft: moderateScale(10),
   },
   communityView: {
-    flexDirection: 'row',
     marginHorizontal: moderateScale(5),
     marginVertical: moderateScale(10),
     marginLeft: moderateScale(10),
