@@ -20,11 +20,11 @@ import ChatIcon from '../components/Svgs/ChatIcon';
 import FavouriteFilledIcon from '../components/Svgs/FavouriteFilledIcon';
 import FavouritesIcon from '../components/Svgs/FavouritesIcon';
 import CalendarIcon from '../components/Svgs/CalendarIcon';
-import {useNavigation, useRoute, RouteProp,} from '@react-navigation/native';
+import {useNavigation, useRoute, RouteProp} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
-import { WorkspaceContext } from '../WorkspaceContext';
- 
-
+import {WorkspaceContext} from '../WorkspaceContext';
+import {useForm, Controller} from 'react-hook-form';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 interface WorkspaceDetailsScreenProps {}
 
@@ -78,23 +78,36 @@ const WorkspaceDetailsScreen = (props: WorkspaceDetailsScreenProps) => {
   const route = useRoute<RouteProp<any>>([]);
   const id = route.params?.itemId;
   const [workspace, setWorkspace] = useState();
-  const workContext = useContext(WorkspaceContext); 
+  const workContext = useContext(WorkspaceContext);
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
-  console.log("id",id)
-   
-  const fetchWorkspaceData = async() => {
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+  } = useForm({
+    defaultValues: {
+      date: new Date(),
+    },
+  });
+
+  console.log('id', id);
+
+  const openDatepicker = () => {
+    setShowDatePicker(true);
+  };
+
+  const fetchWorkspaceData = async () => {
     const documents = await firestore().collection('Workspaces').doc(id).get();
     // console.log("documents.data()",documents.data());
     const workSpaceData = documents.data();
-    setWorkspace(workSpaceData);  
+    setWorkspace(workSpaceData);
     workContext.setWorkspaceContextApi(workSpaceData);
-  }
+  };
 
-  useEffect(()=>{
-     fetchWorkspaceData();
-  },[]);
-
-
+  useEffect(() => {
+    fetchWorkspaceData();
+  }, []);
 
   // const handleBookingWorkSpace = () => {};
 
@@ -119,13 +132,12 @@ const WorkspaceDetailsScreen = (props: WorkspaceDetailsScreenProps) => {
     // console.log('updatedArray(afterSet)', updatedArray);
   };
 
-
-  console.log("workspace",workspace)
+  console.log('workspace', workspace);
   return (
     <View style={styles.container}>
       <View style={styles.headerView}>
         <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity onPress={()=> navigation.goBack()}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <LeftIcon />
           </TouchableOpacity>
           <View style={{flexDirection: 'row', marginLeft: moderateScale(20)}}>
@@ -166,9 +178,11 @@ const WorkspaceDetailsScreen = (props: WorkspaceDetailsScreenProps) => {
             marginTop: moderateScale(10),
           }}>
           <AdressIcon size={16} color={'#fff'} />
-          <Text style={{marginLeft: moderateScale(5)}}>
-            Avinguda Diagonal, 444, ground floor, 08037 Barcelona
-          </Text>
+          {workspace ? (
+            <Text style={{marginLeft: moderateScale(5)}}>
+              {workspace.location}
+            </Text>
+          ) : null}
         </View>
         <View style={{marginTop: moderateScale(15)}}>
           <MapImage1 />
@@ -194,7 +208,7 @@ const WorkspaceDetailsScreen = (props: WorkspaceDetailsScreenProps) => {
               {selectedImage.includes(index) ? (
                 <View style={{position: 'absolute', top: 3, left: 50}}>
                   <TouchableOpacity onPress={() => unSelect(index)}>
-                  {item.icon}
+                    {item.icon}
                   </TouchableOpacity>
                 </View>
               ) : null}
@@ -207,25 +221,53 @@ const WorkspaceDetailsScreen = (props: WorkspaceDetailsScreenProps) => {
       </View>
       <View style={styles.bottomView}>
         <View style={{marginLeft: moderateScale(15)}}>
-          <Text
-            style={{
-              color: Color.white,
-              fontWeight: '600',
-              fontSize: moderateScale(15),
-            }}>
-            $ 45
-          </Text>
-          <View style={{flexDirection: 'row', marginTop: moderateScale(5)}}>
-            <CalendarIcon size={15} color={Color.white} />
+          {workspace ? (
             <Text
               style={{
                 color: Color.white,
                 fontWeight: '600',
-                marginLeft: moderateScale(5),
+                fontSize: moderateScale(15),
               }}>
-              Tomorrow
+              {workspace.price}
             </Text>
-          </View>
+          ) : null}
+          <Controller
+            control={control}
+            name="date"
+            render={({field: {value, onChange}}) => {
+              console.log('value', value);
+              return (
+                <View
+                  style={{flexDirection: 'row', marginTop: moderateScale(5)}}>
+                  <TouchableOpacity onPress={openDatepicker}>
+                    <CalendarIcon size={15} color={Color.white} />
+                  </TouchableOpacity>
+                  {showDatePicker ? (
+                    <DateTimePicker
+                      value={value}
+                      onChange={(selectedDate, date) => {
+                        if (date) {
+                          onChange(date);
+                          setShowDatePicker(false);
+                        } else {
+                          onChange(value);
+                          setShowDatePicker(false);
+                        }
+                      }}
+                    />
+                  ) : null}
+                  <Text
+                    style={{
+                      color: Color.white,
+                      fontWeight: '600',
+                      marginLeft: moderateScale(5),
+                    }}>
+                    {value.toDateString()}
+                  </Text>
+                </View>
+              );
+            }}
+          />
         </View>
         <TouchableOpacity
           onPress={() => navigation.navigate('BookingWorkspace')}
@@ -304,4 +346,3 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 });
-

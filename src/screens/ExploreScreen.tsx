@@ -209,9 +209,9 @@ const ExploreScreen = (props: EploreScreenProps) => {
               </TouchableOpacity>
               {showDatePicker ? (
                 <DateTimePicker
-                  onChange={selectedDate => {
-                    if (selectedDate) {
-                      onChange(selectedDate);
+                  onChange={(selectedDate, date) => {
+                    if (date) {
+                      onChange(date);
                       setShowDatePicker(false);
                     } else {
                       setShowDatePicker(false);
