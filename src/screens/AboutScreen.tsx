@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import {
   Text,
   View,
@@ -8,16 +8,15 @@ import {
 } from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
 import {Color} from '../constants/Color';
-import { WorkspaceContext } from '../WorkspaceContext';
-import { COMMUNITIES } from '../constants/Onboarding';
-import { INTEREST } from '../constants/OnboardingInterest';
-
+import {WorkspaceContext} from '../WorkspaceContext';
+import {COMMUNITIES} from '../constants/Onboarding';
+import {INTEREST} from '../constants/OnboardingInterest';
 
 interface AboutScreenProps {}
 
 const AboutScreen = (props: AboutScreenProps) => {
   const workContext = useContext(WorkspaceContext);
-  console.log("workContext(about)",workContext.workspaceContextApi);
+  console.log('workContext(about)', workContext.workspaceContextApi);
 
   const workContextData = workContext.workspaceContextApi;
 
@@ -26,58 +25,56 @@ const AboutScreen = (props: AboutScreenProps) => {
       <ScrollView>
         <Text style={styles.txt1}>Why We Like it?</Text>
         <ScrollView horizontal>
-        {workContextData?.interests.map( index => {
-         return(
-           <View
-           style={{
-             marginHorizontal: moderateScale(5),
-             marginVertical: moderateScale(10),
-            }} key={index}>
-            <TouchableOpacity style={styles.tag1Btn}>
-              <Text
+          {workContextData?.interests.map(index => {
+            return (
+              <View
                 style={{
-                  fontSize: moderateScale(15),
-                  paddingTop:4,
-                  paddingBottom: 4,
-                }}>
-                {INTEREST[index]}
-              </Text>
-            </TouchableOpacity>
-          </View>
-                )
-              })}
-              </ScrollView>
-            {/* <TouchableOpacity style={styles.tag2Btn}>
-              <Text style={{fontSize: moderateScale(15)}}>Transcedence</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.tag3Btn}>
-              <Text style={{fontSize: moderateScale(15)}}>Harmony</Text>
-            </TouchableOpacity> */}
+                  marginHorizontal: moderateScale(5),
+                  marginVertical: moderateScale(10),
+                }}
+                key={index}>
+                <TouchableOpacity
+                  style={[
+                    styles.tag1Btn,
+                    {backgroundColor: INTEREST[index].bgColor},
+                  ]}>
+                  <Text
+                    style={{
+                      color: INTEREST[index].textColor,
+                      fontSize: moderateScale(15),
+                    }}>
+                    {INTEREST[index].text}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            );
+          })}
+        </ScrollView>
         <Text style={styles.comunityTxt}>Communities</Text>
-        <View style={{flexDirection:"row"}}>
-        {workContextData?.community.map( index => {
-        return (
-          <View style={styles.communityView} key={index}>
-          <TouchableOpacity style={styles.community1btn}>
-            <Text style={{color: Color.primary}}> { COMMUNITIES[index]}</Text>
-          </TouchableOpacity>
-        </View> )
-        }
-        )}
+        <View style={{flexDirection: 'row'}}>
+          {workContextData?.community.map(index => {
+            return (
+              <View style={styles.communityView} key={index}>
+                <TouchableOpacity style={styles.community1btn}>
+                  <Text style={{color: Color.primary}}>
+                    {' '}
+                    {COMMUNITIES[index]}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            );
+          })}
         </View>
-          
         <Text style={styles.detailTxt}>The Detailed Story</Text>
-        { workContextData ? (
+        {workContextData ? (
           <Text
-          style={{
-            marginHorizontal: moderateScale(10),
-            marginTop: moderateScale(10),
-          }}>
-           {workContextData.description} 
-        </Text>
-        ):
-        null
-        }
+            style={{
+              marginHorizontal: moderateScale(10),
+              marginTop: moderateScale(10),
+            }}>
+            {workContextData.description}
+          </Text>
+        ) : null}
         <Text style={styles.needTxt}>Need to know</Text>
         <Text
           style={{
@@ -104,9 +101,9 @@ const styles = StyleSheet.create({
     marginLeft: moderateScale(10),
   },
   tag1Btn: {
-    backgroundColor: Color.lightGreen,
+    // backgroundColor: INTEREST[index].bgColor,
     paddingHorizontal: moderateScale(15),
-    paddingVertical: moderateScale(3),
+    paddingVertical: moderateScale(5),
     borderRadius: 10,
     marginHorizontal: moderateScale(15),
   },

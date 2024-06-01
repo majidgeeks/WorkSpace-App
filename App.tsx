@@ -13,6 +13,7 @@ import AboutScreen from './src/screens/AboutScreen';
 import WorkspaceDetailsScreen from './src/screens/WorkspaceDetailsScreen';
 import WorkspaceStackNavigation from './src/Navigator/WorkspaceStackNavigation';
 import FeedBackScreen from './src/screens/FeedBackScreen';
+import RootNavigator from './src/Navigator/RootNavigator';
 
 
 
@@ -28,7 +29,8 @@ const App = () => {
       <NavigationContainer>
         {/* <WorkspaceStackNavigation /> */}
          {/* <AuthNavigator />    */}
-          <BottomTabNavigation />    
+         <RootNavigator />
+          {/* <BottomTabNavigation />     */}
       </NavigationContainer>   
       // <SelectFlowScreen />
       // <SelectComScreen />
