@@ -9,14 +9,13 @@ import CommunityTagOutline from '../components/CommunityTagOutline';
 import RightMarkIcon from '../components/Svgs/RightMarkIcon';
 import {TouchableOpacity} from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
-import { COMMUNITIES } from '../constants/Onboarding';
+import {COMMUNITIES} from '../constants/Onboarding';
+import BottomTabNavigation from '../Navigator/BottomTabNavigation';
 
 interface SelectComScreenProps {}
 
 const SelectComScreen = () => {
-  const [items, setItems] = useState(
-   COMMUNITIES
-);
+  const [items, setItems] = useState(COMMUNITIES);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [error, setError] = useState('');
   const route = useRoute<RouteProp<any>>();
@@ -32,7 +31,8 @@ const SelectComScreen = () => {
           .update({communities: selectedItems});
         console.log('User updated!');
         console.log('docUpdated', docUpdated);
-        navigation.navigate('Profile', {id});
+        // navigation.navigate('Profile', {id});
+        // <BottomTabNavigation />
       } else {
         setError('you must select atleast one tag');
       }
@@ -89,8 +89,8 @@ const SelectComScreen = () => {
               {error ? <Text style={styles.errorTxt}>{error}</Text> : null}
               <View style={styles.bottomView}>
                 <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-                  <View style={styles.dot1}></View>
-                  <View style={styles.dot2}></View>
+                  <View style={styles.dot1} />
+                  <View style={styles.dot2} />
                 </View>
                 <View style={{marginLeft: moderateScale(70)}}>
                   <TouchableOpacity onPress={onSubmit}>

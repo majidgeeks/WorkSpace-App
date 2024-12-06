@@ -7,13 +7,13 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import {Images} from '../assets/images';
+import { Images } from '../assets/images';
 import Header from '../components/Header';
 import RightMarkIcon from '../components/Svgs/RightMarkIcon';
-import DragList, {DragListRenderItemInfo} from 'react-native-draglist';
+import DragList, { DragListRenderItemInfo } from 'react-native-draglist';
 import DragIcon from '../components/Svgs/dragIcon';
 import { moderateScale } from 'react-native-size-matters';
 
@@ -146,7 +146,7 @@ const SelectFlowScreen = () => {
       console.log('User added!');
       const dataId = docAdded.id;
 
-      navigation.navigate('SelectCommunity', {dataId});
+      navigation.navigate('SelectCommunity', { dataId });
     } catch (err) {
       console.log('err', err);
     }
@@ -162,7 +162,7 @@ const SelectFlowScreen = () => {
             melt away.
           </Text>
           <Text style={styles.midTxt}>How do you find your Flow?</Text>
-          <View style={{height: '70%'}}>
+          <View style={{ height: '70%' }}>
             <DragList
               data={selectedFlow}
               keyExtractor={keyExtractor}
@@ -186,7 +186,7 @@ const SelectFlowScreen = () => {
                     height: 40,
                     marginTop: moderateScale(10),
                   }}>
-                  <View style={{position: 'absolute', left: 10}}>
+                  <View style={{ position: 'absolute', left: 10 }}>
                     <DragIcon />
                   </View>
                   <Text
@@ -209,10 +209,10 @@ const SelectFlowScreen = () => {
                 justifyContent: 'center',
                 marginTop: moderateScale(20),
               }}>
-              <View style={styles.dot1}></View>
-              <View style={styles.dot2}></View>
+              <View style={styles.dot1} />
+              <View style={styles.dot2} />
             </View>
-            <View style={{marginLeft: moderateScale(70)}}>
+            <View style={{ marginLeft: moderateScale(70) }}>
               <TouchableOpacity onPress={onSubmit}>
                 <RightMarkIcon />
               </TouchableOpacity>
@@ -227,7 +227,7 @@ const SelectFlowScreen = () => {
 export default SelectFlowScreen;
 
 const styles = StyleSheet.create({
-  container: {flex: 1},
+  container: { flex: 1 },
   mainContainer: {
     backgroundColor: 'white',
     borderTopLeftRadius: 20,
@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontSize: moderateScale(20),
   },
-  
+
   txt1: {},
   bottomView: {
     marginLeft: moderateScale(120),

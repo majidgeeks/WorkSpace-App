@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Text,
   View,
@@ -11,25 +11,25 @@ import {
   launchImageLibrary as _launchImageLibrary,
   launchCamera as _launchCamera,
 } from 'react-native-image-picker';
-import {useForm, Controller} from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import firestore from '@react-native-firebase/firestore';
 import EditPicIcon from '../components/Svgs/EditPicIcon';
 import CustomInput from '../components/Input';
-import {moderateScale} from 'react-native-size-matters';
-import {Dropdown} from 'react-native-element-dropdown';
-import {Switch} from '@rneui/themed';
-import {RouteProp, useRoute} from '@react-navigation/native';
+import { moderateScale } from 'react-native-size-matters';
+import { Dropdown } from 'react-native-element-dropdown';
+import { Switch } from '@rneui/themed';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 
 const countryCodes = [
-  {label: '+92', value: '+92'},
-  {label: '+1', value: '+1'},
+  { label: '+92', value: '+92' },
+  { label: '+1', value: '+1' },
 ];
 
 let launchImageLibrary = _launchImageLibrary;
 let launchCamera = _launchCamera;
 
-interface ProfileScreenProps {}
+interface ProfileScreenProps { }
 
 const ProfileScreen = () => {
   const [selectedImage, setSelectedImage] = useState(); // for image picker
@@ -43,7 +43,7 @@ const ProfileScreen = () => {
   const {
     control,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
   } = useForm({
     defaultValues: {
       fullName: '',
@@ -99,7 +99,7 @@ const ProfileScreen = () => {
       const docUpdated = await firestore()
         .collection('Users')
         .doc(dataId)
-        .update({...payload});
+        .update({ ...payload });
       console.log('docUpdated', docUpdated);
     } catch (err) {
       console.log('err', err);
@@ -109,24 +109,24 @@ const ProfileScreen = () => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <View style={{alignItems: 'center', marginTop: moderateScale(40)}}>
-          <Image source={{uri: selectedImage}} style={styles.image} />
+        <View style={{ alignItems: 'center', marginTop: moderateScale(40) }}>
+          <Image source={{ uri: selectedImage }} style={styles.image} />
           <TouchableOpacity
-            style={{position: 'absolute', top: 110}}
+            style={{ position: 'absolute', top: 110 }}
             onPress={handleCameraLaunch}>
             <EditPicIcon />
           </TouchableOpacity>
         </View>
 
-        <View style={{marginTop: moderateScale(25)}}>
-          <View style={{borderTopWidth: 2, borderTopColor: '#EDEDED'}}>
+        <View style={{ marginTop: moderateScale(25) }}>
+          <View style={{ borderTopWidth: 2, borderTopColor: '#EDEDED' }}>
             <Controller
               name="fullName"
               control={control}
               rules={{
                 required: true,
               }}
-              render={({field: {onChange, value}, fieldState: {error}}) => (
+              render={({ field: { onChange, value }, fieldState: { error } }) => (
                 <>
                   <CustomInput
                     label="Full Name"
@@ -142,21 +142,21 @@ const ProfileScreen = () => {
                       borderBottomWidth: 0,
                       marginBottom: moderateScale(-12),
                     }}
-                    style={{backgroundColor: '#EDEDED'}}
+                    style={{ backgroundColor: '#EDEDED' }}
                   />
                   {error?.message ? <Text>{error.message}</Text> : null}
                 </>
               )}
             />
           </View>
-          <View style={{borderTopWidth: 2, borderTopColor: '#EDEDED'}}>
+          <View style={{ borderTopWidth: 2, borderTopColor: '#EDEDED' }}>
             <Controller
               name="email"
               control={control}
               rules={{
                 required: true,
               }}
-              render={({field: {value, onChange}, fieldState: {error}}) => (
+              render={({ field: { value, onChange }, fieldState: { error } }) => (
                 <>
                   <CustomInput
                     disabled={true}
@@ -173,7 +173,7 @@ const ProfileScreen = () => {
                       borderBottomWidth: 0,
                       marginBottom: moderateScale(-22),
                     }}
-                    style={{backgroundColor: '#EDEDED'}}
+                    style={{ backgroundColor: '#EDEDED' }}
                   />
                   {error?.message ? <Text>{error.message}</Text> : null}
                 </>
@@ -194,7 +194,7 @@ const ProfileScreen = () => {
               rules={{
                 required: true,
               }}
-              render={({field: {value, onChange}, fieldState: {error}}) => (
+              render={({ field: { value, onChange }, fieldState: { error } }) => (
                 <>
                   <Dropdown
                     style={styles.dropdown}
@@ -221,7 +221,7 @@ const ProfileScreen = () => {
               rules={{
                 required: true,
               }}
-              render={({field: {value, onChange}, fieldState: {error}}) => (
+              render={({ field: { value, onChange }, fieldState: { error } }) => (
                 <>
                   <CustomInput
                     value={value}
@@ -259,7 +259,7 @@ const ProfileScreen = () => {
               rules={{
                 required: true,
               }}
-              render={({field: {value, onChange}, fieldState: {error}}) => (
+              render={({ field: { value, onChange }, fieldState: { error } }) => (
                 <>
                   <Switch
                     style={{
@@ -269,7 +269,7 @@ const ProfileScreen = () => {
                     value={value}
                     onValueChange={onChange}
                     thumbColor={'white'}
-                    trackColor={{true: '#18255F', false: 'red'}}
+                    trackColor={{ true: '#18255F', false: 'red' }}
                   />
                   {error?.message ? <Text>{error.message}</Text> : null}
                 </>
@@ -284,7 +284,7 @@ const ProfileScreen = () => {
               rules={{
                 required: true,
               }}
-              render={({field: {value, onChange}, fieldState: {error}}) => (
+              render={({ field: { value, onChange }, fieldState: { error } }) => (
                 <>
                   <Switch
                     style={{
@@ -294,7 +294,7 @@ const ProfileScreen = () => {
                     }}
                     value={value}
                     onValueChange={onChange}
-                    trackColor={{true: '#18255F', false: 'red'}}
+                    trackColor={{ true: '#18255F', false: 'red' }}
                     thumbColor={'white'}
                   />
                   {error?.message ? <Text>{error.message}</Text> : null}
@@ -316,7 +316,7 @@ const ProfileScreen = () => {
 export default ProfileScreen;
 
 const styles = StyleSheet.create({
-  container: {flex: 1},
+  container: { flex: 1 },
   image: {
     width: 125,
     height: 125,

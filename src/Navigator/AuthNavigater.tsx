@@ -11,46 +11,51 @@ import SelectComScreen from '../screens/SelectComScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import LeftIcon from '../components/Svgs/LeftIcon';
 
-
-
 const Stack = createNativeStackNavigator();
 
+// eslint-disable-next-line prettier/prettier
 function AuthNavigator() {
-
+  // eslint-disable-next-line prettier/prettier
   return (
-      <Stack.Navigator screenOptions={{headerShown:false, }}>
-        <Stack.Screen  name="Login" component={LoginScreen} options={{
-          
-        }} />
+    // eslint-disable-next-line prettier/prettier
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Login" component={LoginScreen} options={{}} />
 
-        <Stack.Screen name="SignUp" component={SignUpScreen} options={{
-           
-        }} /> 
+      <Stack.Screen name="SignUp" component={SignUpScreen} options={{}} />
 
-        <Stack.Screen name="SelectFlow" component={SelectFlowScreen} options={{
-          
-        }} /> 
-        <Stack.Screen name="SelectCommunity" component={SelectComScreen} options={{
-          
-        }} />
-       
-       <Stack.Screen name="Profile" component={ProfileScreen} options={{
-           title:"Private Information",
-           headerTitleAlign:"center",
-           headerShown:true, 
-          headerLeft:()=>(
-            <TouchableOpacity  style={{marginHorizontal:10}}>
+      <Stack.Screen
+        name="SelectFlow"
+        component={SelectFlowScreen}
+        options={{}}
+
+      />
+      <Stack.Screen
+        name="SelectCommunity"
+        component={SelectComScreen}
+        options={{}}
+
+
+      />
+
+      <Stack.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          title: 'Private Information',
+          headerTitleAlign: 'center',
+          headerShown: true,
+          headerLeft: () => (
+            <TouchableOpacity style={{ marginHorizontal: 10 }}>
               <LeftIcon />
             </TouchableOpacity>
-            
           ),
-          
-        
+
+
         }} />
 
-       
-        
-      </Stack.Navigator>
+
+
+    </Stack.Navigator>
   );
 }
 
